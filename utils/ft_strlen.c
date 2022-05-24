@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/24 13:04:46 by amarchan         ###   ########.fr       */
+/*   Created: 2021/11/25 08:42:58 by amarchan          #+#    #+#             */
+/*   Updated: 2022/05/24 13:11:58 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../headers/philo.h"
 
-int	main(int argc, char **argv)
-{	
-	if (argc == 5 || argc == 6)
-		ft_parse(argc, argv);
-	else
-		ft_panic(WRONG_NARG);
-	init_game();
-	return (0);
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

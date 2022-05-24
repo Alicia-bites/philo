@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/23 19:04:56 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/24 13:16:00 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define WRONG_ARG -2
 # define EMPTY_STR -3
 # define OUT_INT -4
+# define NOT_INT -5
 
 typedef struct s_settings
 {
@@ -37,6 +38,11 @@ typedef struct s_settings
 	int	n_meals;
 }	t_settings;
 
+typedef struct s_game
+{
+	t_settings		set;
+}	t_game;
+
 typedef struct s_philo
 {
 	int					id;
@@ -46,20 +52,19 @@ typedef struct s_philo
 	t_game				*state;
 }	t_philo;
 
-typedef struct s_game
-{
-	t_settings		set;
-}	t_game;
-
 //parsing
-int			ft_parse(t_philos_args *pi, int argc, char **argv);
+int			ft_parse(int argc, char **argv);
 void		ft_panic(int errcode);
+int			init_game();
 
 //utils
 int			ft_atoi(const char *str);
 long long	ft_atoll(const char *str);
 int			ft_isspace(int c);
 int			ft_isdigit(int c);
+int			ft_strlen(char *s);
+void		ft_rstrip(char *s);
+void		ft_lstrip(char *s);
 
 
 //main
