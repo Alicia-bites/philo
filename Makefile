@@ -5,24 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/13 14:02:33 by amarchan          #+#    #+#              #
-#    Updated: 2022/05/19 14:56:18 by amarchan         ###   ########.fr        #
+#    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
+#    Updated: 2022/05/23 17:38:09 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/04 09:22:13 by amarchan          #+#    #+#              #
-#    Updated: 2022/04/12 18:53:28 by amarchan         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-NAME = philosophers
+NAME = philo
 
 NAME_FT_PRINTF = ft_printf.a
 
@@ -33,6 +21,11 @@ NM_BIN = nm
 DIR_FT_PRINTF = ft_printf/
 
 SRCS =	src/main.c \
+		src/parsing.c \
+		utils/ft_atoi.c \
+		utils/ft_atoll.c \
+		utils/ft_isspace.c \
+		utils/ft_isdigit.c \
 
 OBJS := ${SRCS:.c=.o}
 
@@ -48,7 +41,7 @@ INC_DIR = headers
 INC_FT_PRINTF = ft_printf
 
 .c.o: $(SRCS)
-	$(CC) $(CFLAGS) -c -I ${INC_DIR} -I ${INC_LIBFT} $< -o ${<:.c=.o} $(CFLAGS_MLX)
+	$(CC) $(CFLAGS) -c -I ${INC_DIR} $< -o ${<:.c=.o}
 
 all: $(NAME_FT_PRINTF) $(NAME) 
 
