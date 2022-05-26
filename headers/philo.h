@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/24 13:16:00 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/26 13:48:33 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define EMPTY_STR -3
 # define OUT_INT -4
 # define NOT_INT -5
+# define MALLOC_FAILURE -6
 
 typedef struct s_settings
 {
@@ -52,10 +53,13 @@ typedef struct s_philo
 	t_game				*state;
 }	t_philo;
 
+// main
+int			init_game();
+void		init_philo(t_philo *philo, int id, t_game *state);
+
 //parsing
 int			ft_parse(int argc, char **argv);
 void		ft_panic(int errcode);
-int			init_game();
 
 //utils
 int			ft_atoi(const char *str);
@@ -65,6 +69,10 @@ int			ft_isdigit(int c);
 int			ft_strlen(char *s);
 void		ft_rstrip(char *s);
 void		ft_lstrip(char *s);
+void		*ft_memmove(void *dest, const void *src, size_t n);
+void		*ft_memcpy(void *s1, const void *s2, size_t n);
+void		ft_strip(char *s);
+int			isinteger(char *s);
 
 
 //main

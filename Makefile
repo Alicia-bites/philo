@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/05/23 17:38:09 by amarchan         ###   ########.fr        #
+#    Updated: 2022/05/26 13:46:57 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,12 @@ SRCS =	src/main.c \
 		utils/ft_atoll.c \
 		utils/ft_isspace.c \
 		utils/ft_isdigit.c \
+		utils/ft_rstrip.c \
+		utils/ft_lstrip.c \
+		utils/ft_memmove.c \
+		utils/ft_memcpy.c \
+		utils/isinteger.c \
+		utils/ft_strip.c \
 
 OBJS := ${SRCS:.c=.o}
 
