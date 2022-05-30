@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/28 12:41:57 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:18:46 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	init_philo(t_philo *philo, int id, t_game *state)
 {
 	philo->id = id;
-	printf("%d\n", philo->id);
+	printf("id : %d\n", philo->id);
 	philo->last_eat = -1;
-	printf("%ld\n", philo->last_eat);
+	printf("last_eat : %ld\n", philo->last_eat);
 	philo->n_meals = 0;
-	printf("%d\n", philo->n_meals);
+	printf("n_meals : %d\n", philo->n_meals);
 	philo->state = state;
-	printf("%p\n", philo->state);
+	printf("philo->state : %p\n", philo->state);
 }
 
 //creating as many t_philo structures as there are philos
@@ -30,15 +30,8 @@ int	init_game(t_philo **philos, t_game **state)
 	int	id;
 
 	id = 0;
-	*philos = NULL;
-	*state = NULL;
-	*state = malloc(sizeof(t_game));
-	if (!(*state))
-		ft_panic(MALLOC_FAILURE);
-	*philos = malloc(sizeof(t_philo) * (*state)->set.n_philos);
-	if (!(*philos))
-		ft_panic(MALLOC_FAILURE);
-	while (id < (*state)->set.n_philos)
+	printf("%d\n", (*state)->set->n_philos);
+	while (id < (*state)->set->n_philos)
 	{
 		init_philo(*philos, id + 1, *state);
 		id++;
@@ -51,8 +44,17 @@ int	main(int argc, char **argv)
 	t_philo				*philos;
 	t_game				*state;
 	
+	philos = NULL;
+	state = NULL;
+	state = malloc(sizeof(t_game));
+	if (!state)
+		ft_panic(MALLOC_FAILURE);
+	philos = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+	if (!philos)
+		ft_panic(MALLOC_FAILURE);
+	philos->state = state;
 	if (argc == 5 || argc == 6)
-		ft_parse(argc, argv);
+		ft_parse(argc, argv, &philos);
 	else
 		ft_panic(WRONG_NARG);
 	init_game(&philos, &state);

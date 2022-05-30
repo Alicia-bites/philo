@@ -6,23 +6,19 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/05/28 12:50:17 by amarchan         ###   ########.fr        #
+#    Updated: 2022/05/30 15:02:51 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-NAME_FT_PRINTF = ft_printf.a
-
 NORMINETTE_BIN = norminette
 
 NM_BIN = nm
 
-DIR_FT_PRINTF = ft_printf/
-
 SRCS =	src/main.c \
 		src/parsing.c \
-		src/start_simulation \
+		src/start_simulation.c \
 		utils/ft_atoi.c \
 		utils/ft_atoll.c \
 		utils/ft_isspace.c \
@@ -33,6 +29,7 @@ SRCS =	src/main.c \
 		utils/ft_memcpy.c \
 		utils/isinteger.c \
 		utils/ft_strip.c \
+		utils/ft_strlen.c \
 
 OBJS := ${SRCS:.c=.o}
 
@@ -45,27 +42,20 @@ AR = ar rcs
 RM = rm -rf
 
 INC_DIR = headers
-INC_FT_PRINTF = ft_printf
 
 .c.o: $(SRCS)
 	$(CC) $(CFLAGS) -c -I ${INC_DIR} $< -o ${<:.c=.o}
 
-all: $(NAME_FT_PRINTF) $(NAME) 
-
-$(NAME_FT_PRINTF):
-	make -C $(DIR_FT_PRINTF)
-	cp $(DIR_FT_PRINTF)ft_printf.a .	
+all: $(NAME) 
 
 $(NAME): ${OBJS}
-	gcc $(CFLAGS) -o $(NAME) $(OBJS) $(NAME_FT_PRINTF)
+	gcc $(CFLAGS) -o $(NAME) $(OBJS)
 
 clean:
 	${RM} ${OBJS}
-	make -C $(DIR_FT_PRINTF) clean
 
 fclean: clean
-	${RM} ${NAME} ${NAME_FT_PRINTF}
-	${RM} $(DIR_FT_PRINTF)ft_printf.a
+	${RM} ${NAME}
 	
 
 re: fclean all
