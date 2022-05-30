@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/05/26 13:46:57 by amarchan         ###   ########.fr        #
+#    Updated: 2022/05/28 12:50:17 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ DIR_FT_PRINTF = ft_printf/
 
 SRCS =	src/main.c \
 		src/parsing.c \
+		src/start_simulation \
 		utils/ft_atoi.c \
 		utils/ft_atoll.c \
 		utils/ft_isspace.c \
@@ -37,7 +38,7 @@ OBJS := ${SRCS:.c=.o}
 
 CC = gcc
 
-CFLAGS = -g3 -Wall -Wextra -Werror
+CFLAGS = -g3 -Wall -Wextra -Werror -pthread
 
 AR = ar rcs
 

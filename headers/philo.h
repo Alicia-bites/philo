@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/26 13:48:33 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/28 13:02:07 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <stdlib.h>
+# include <pthread.h>
 
 # define WRONG_NARG -1
 # define WRONG_ARG -2
@@ -29,6 +30,7 @@
 # define OUT_INT -4
 # define NOT_INT -5
 # define MALLOC_FAILURE -6
+# define THREAD_ERROR -7
 
 typedef struct s_settings
 {
@@ -50,6 +52,7 @@ typedef struct s_philo
 	int					pid;
 	unsigned long		last_eat;
 	int					n_meals;
+	pthread_t			thread;
 	t_game				*state;
 }	t_philo;
 
