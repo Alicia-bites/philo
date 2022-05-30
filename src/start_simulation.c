@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:37:07 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/30 18:03:54 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:27:24 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_start_time(t_philo *philos)
 	// printf("ref_time : %ld s\n", starting_time.tv_sec);
 	// printf("ref_time : %ld ms\n", starting_time.tv_usec);
 	philos->starting_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
-	printf("now : %ld ms\n", philos->starting_time);
+	// printf("now : %ld ms\n", philos->starting_time);
 }
 
 void	*sim(void *param)
@@ -83,7 +83,7 @@ void	start_simulation(t_philo *philos, t_game *state)
 	{
 		err = pthread_create(&philos[i].thread, 0, &sim, &philos[i]);
 		printf("err = %d\n", err);
-		if (err == 0)
+		if (err != 0)
 			ft_panic(THREAD_ERROR);
 		i++;
 	}
