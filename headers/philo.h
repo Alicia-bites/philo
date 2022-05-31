@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/31 15:48:02 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:36:15 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,32 +72,38 @@ typedef struct s_philo
 }	t_philo;
 
 // main
-int	init_game(t_philo *philos, t_game state);
-void init_philo(t_philo *philo, int id, t_game state);
+int			init_game(t_philo *philos, t_game state);
+void 		init_philo(t_philo *philo, int id, t_game state);
 
 //parsing
 char 		**check_args(int argc, char **argv, int *err);
 int			ft_parse(int argc, char **argv, t_game *state);
-int		ft_panic(int errcode);
+int			ft_panic(int errcode);
 
 //start_simulation
-void	start_simulation(t_philo *philos, t_game state);
-void	*sim(void *param);
-void	set_start_time(t_philo *philos);
-int		sim_is_over(t_philo *philos);
-void	philo_thinks(t_philo *philos);
-void	philo_sleeps(t_philo *philos);
-void	philo_eats(t_philo *philos);
-int		can_eat(t_philo *philos);
+int			start_simulation(t_philo *philos, t_game state);
+void		*sim(void *param);
+unsigned long	get_time(t_philo *philos);
+int			sim_is_over(t_philo *philos);
+void		philo_thinks(t_philo *philos);
+void		philo_sleeps(t_philo *philos);
+void		philo_eats(t_philo *philos);
 
-//fork_handlers
-int	init_forks(t_philo *philos, t_settings set);
+//create fork
+int			init_forks(t_philo *philos, t_settings set);
+int			give_fork_to_philos(t_philo left_philo, t_philo right_philo);
+t_fork		create_fork(void);
 
 //philo_does
 void		philo_thinks(t_philo *philos);
 void		philo_sleeps(t_philo *philos);
 void		philo_eats(t_philo *philos);
-int			can_eat(t_philo *philos);
+int			philo_eats(t_philo *philos);
+
+//is_fork_free
+int	philo_grabs_fork(t_philo *philos);
+int	try(t_philo *philos, t_fork fork);
+int	wait(t_philo *philos);
 
 //utils
 int			ft_atoi(const char *str);

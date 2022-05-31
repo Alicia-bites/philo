@@ -6,26 +6,47 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/31 15:12:44 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:48:33 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-// int	can_eat(t_philo *philos)
-// {
-// 	if (philo_grabs_fork(philos));
-// 		return (1);
-// 	return (0);
-// }
-
-void	philo_eats(t_philo *philos)
+int kill_philo_if_he_starved(t_philo *philos)
 {
-	// if (can_eat(philos))
-	printf("%ld %d is eating\n", philos->timestamp, philos->id);
+	if (philos->last_eat + philos->state.set.time_to_die < philos->timestamp)
+	{
+		philos->timestamp = get_time - philos->starting_time;
+		printf("%d\n %d\n died\n", philos->timestamp - philos->starting_time,
+			philos->id);
+	}
+	return (0);
+}
+int	is_eating(t_philo *philos, int time_to)
+{
+	int err;
+
+	err = kill_philo_if_he_starved(*philos);
+	printf("%d %d is eating\n", philos->timestamp - philos->starting_time,
+		philos->id);
+	return (0);
+}
+
+int	philo_eats(t_philo *philos)
+{
+	int	err;
+
+	grab_fork(philos, philos->right_fork);
+	grab_fork(philos, philos->left_fork);
 	philos->last_eat = philos->timestamp;
-	philos->timestamp += philos->state.set.time_to_sleep;
+	err = is_eating(philos, philos->state.set.time_to_eat);
+	printf("%ld %d is eating\n", philos->timestamp, philos->id);
+	philos->timestamp += philos->state.set.time_to_eat;
 	printf("n_meals for %d = %d\n", philos->id, philos->n_meals++);
+	release_fork(philos->left_fork);
+	release_fork(philos->right_fork);
+	philos->n_meals++;
+	return (err);
 }
 
 void	philo_sleeps(t_philo *philos)

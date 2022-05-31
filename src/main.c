@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/31 15:49:49 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:12:43 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ int	init_game(t_philo *philos, t_game state)
 	return (0);
 }
 
+int ft_quit(t_philo *philos, int err)
+{
+	free(philos);
+	return(err);
+}
+
 int	main(int argc, char **argv)
 {
 	t_philo				*philos;
@@ -55,31 +61,17 @@ int	main(int argc, char **argv)
 	philos = malloc(sizeof(t_philo) * (ft_atoi(argv[1])));
 	if (!philos)
 		ft_panic(MALLOC_FAILURE);
-	//(*philos)->state = state;
 	if (argc == 5 || argc == 6)
 		err = ft_parse(argc, argv, &state);
 	else 
 		err = ft_panic(WRONG_NARG);
 	if (err != 0)
-	{
-		free(philos);
-		printf("err = %d\n", err);
-		return (err);
-	}
-	// printf("n_philos : %d\n", state->set->n_philos);
-	// printf("time_to_die : %d\n", state->set->time_to_die);
-	// printf("time_to_eat : %d\n", state->set->time_to_eat);
-	// printf("time_to_sleep : %d\n", state->set->time_to_sleep);
+		return (ft_quit(philos, err));
 	err = init_game(philos, state);
 	if (err != 0)
-	{
-		free(philos);
-		printf("err = %d\n", err);
-		return (err);
-	}
-	// printf("philo p: %p\tphilo[0]: %p\n", philos, philos[0]);
-	// printf("%p\n", philos);
-	// start_simulation((*philos), state);
-	// printf("%p\n", philos);
+		return (ft_quit(philos, err));
+	err = start_simulation(philos, state);
+	if (err != 0)
+		return (ft_quit(philos, err));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:37:07 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/31 15:11:59 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:47:53 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ int	sim_is_over(t_philo *philos)
 	return (0);
 }
 
-void	set_start_time(t_philo *philos)
+unsigned long	get_time(t_philo *philos)
 {
 	struct timeval	start;
 	
 	gettimeofday(&start, 0);
-	// printf("ref_time : %ld s\n", starting_time.tv_sec);
-	// printf("ref_time : %ld ms\n", starting_time.tv_usec);
-	philos->starting_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
-	// printf("now : %ld ms\n", philos->starting_time);
+	return (philos->starting_time = (start.tv_sec * 1000)
+		+ (start.tv_usec / 1000));
 }
 
 void	*sim(void *param)
@@ -45,19 +43,28 @@ void	*sim(void *param)
 	return (0);
 }
 
-void	start_simulation(t_philo *philos, t_game state)
+int	start_simulation(t_philo *philos, t_game state)
 {
 	int	i;
 	int err;
 
 	i = 0;
-	set_start_time(philos);
+	philos->starting_time = get_time(philos);
+	// printf("%lu\n", philos->starting_time);
 	while (i < state.set.n_philos)
 	{
 		err = pthread_create(&philos[i].thread, 0, &sim, &philos[i]);
 		// printf("err = %d\n", err);
 		if (err != 0)
-			ft_panic(THREAD_ERROR);
+			return (ft_panic(THREAD_ERROR));
 		i++;
 	}
+
+	i = 0;
+	while (i < state.set.n_philos)
+	{
+		pthread_join(philos[i].thread, 0);
+		i++;
+	}
+	return (0);
 }
