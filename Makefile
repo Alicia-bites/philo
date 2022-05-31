@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/05/30 15:02:51 by amarchan         ###   ########.fr        #
+#    Updated: 2022/05/31 15:09:49 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ NM_BIN = nm
 SRCS =	src/main.c \
 		src/parsing.c \
 		src/start_simulation.c \
+		src/forks_handler.c \
+		src/philo_does.c \
 		utils/ft_atoi.c \
 		utils/ft_atoll.c \
 		utils/ft_isspace.c \
@@ -30,10 +32,11 @@ SRCS =	src/main.c \
 		utils/isinteger.c \
 		utils/ft_strip.c \
 		utils/ft_strlen.c \
+		utils/ft_bzero.c \
 
 OBJS := ${SRCS:.c=.o}
 
-CC = gcc
+CC = clang
 
 CFLAGS = -g3 -Wall -Wextra -Werror -pthread
 
