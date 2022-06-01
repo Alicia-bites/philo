@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:37:07 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/01 16:11:19 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:24:48 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,85 @@ unsigned long	get_starting_time(t_philo *philos)
 		+ (start.tv_usec / 1000));
 }
 
-int	wait_to_eat(t_philo *philos)
+struct timeval	ft_convert(unsigned long moment_ms, 
+	struct timeval *time_ref)
 {
-	unsigned long	next_meal;
+	struct timeval	moment_converted;
 
-	if (philos->state.set.n_philos % 2 != 1)
-	{
-		if (philos->last_eat == (unsigned long) -1)
-			philos->last_eat = 0;
-		return ;
-	}
-	if (philos->last_eat == (unsigned long) -1)
-	{
-		if (philos->id == philos->state.set.n_philos)
-			next_meal = 0;
-		else if (philos->id % 2 == 0)
-			next_meal = philos->state.set.time_to_eat;
-		else
-			next_meal = philos->state.set.time_to_eat * 2;
-	}
-	else
-		next_meal = philos->last_eat * philos->state.set.time_to_eat;
-	philos->timestamp = next_meal;
+	moment_converted.tv_sec = moment_ms / 1000;
+	moment_converted.tv_usec = moment_ms % 1000 * 1000;
+	return (moment_converted);
 }
+
+int	is_greater_than(unsigned long a, unsigned long b)
+{
+	if (a > b)
+		return (1);
+	return (0);
+}
+
+unsigned long	time_diff(struct timeval a, struct timeval b)
+{
+	unsigned long	a_long;
+	unsigned long	b_long;
+
+	a_long = a.tv_sec * 1000 + a.tv_usec / 1000;
+	b_long = b.tv_sec * 1000 + b.tv_usec / 1000;
+	return (a_long - b_long);
+}
+
+//make philo wait until moment_ms
+void	ft_wait_until(unsigned long moment_ms, struct timeval *time_ref)
+{
+	static struct timeval	static_time_ref;
+	struct	timeval			moment;
+	struct timeval			now;
+	unsigned long			static_time_ref_long;
+
+	moment = ft_convert(moment_ms, time_ref);
+	if (time_ref)
+		static_time_ref = *time_ref;
+	gettimeofday(&now, 0);
+	static_time_ref_long = static_time_ref.tv_sec
+		* 1000 + static_time_ref.tv_usec / 1000;
+	while (!is_greater_than(time_diff(now, moment), static_time_ref_long))
+	{
+		usleep(10);
+		gettimeofday(&now, 0);
+	}
+}
+
+// unsigned long	when_is_next_meal(t_philo *philos)
+// {
+// 	unsigned long next_meal;
+	
+// 	if (philos->state.set.n_philos % 2 != 1)
+// 	{
+// 		if (philos->last_eat == (unsigned long) -1)
+// 			philos->last_eat = 0;
+// 		return ;
+// 	}
+// 	if (philos->last_eat == (unsigned long) -1)
+// 	{
+// 		if (philos->id == philos->state.set.n_philos)
+// 			next_meal = 0;
+// 		else if (philos->id % 2 == 0)
+// 			next_meal = philos->state.set.time_to_eat;
+// 		else
+// 			next_meal = philos->state.set.time_to_eat * 2;
+// 	}
+// 	else
+// 		next_meal = philos->last_eat * philos->state.set.time_to_eat;
+// }
+
+// void	wait_to_eat(t_philo *philos)
+// {
+// 	unsigned long	next_meal;
+	
+// 	next_meal = when_is_next_meal(philos);
+// 	ft_wait_until(next_meal, 0);
+// 	philos->timestamp = next_meal;
+// }
 	
 void	*sim(void *param)
 {
