@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/31 17:12:43 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:40:51 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void init_philo(t_philo *philo, int id, t_game state)
 	philo->n_meals = 0;
 	// printf("n_meals : %d\n", philo->n_meals);
 	philo->state = state;
-	// printf("philo->state : %p\n", philo->state);
+	// printf("philo->state : %d\n", philo->state);
 }
 
 //creating as many t_philo structures as there are philos
@@ -32,11 +32,11 @@ int	init_game(t_philo *philos, t_game state)
 	int	id;
 
 	id = 0;
-	// printf("%d\n", (*state)->set->n_philos);
+	// printf("%d\n", state.set.n_philos);
 	while (id < state.set.n_philos)
 	{
 		init_philo(&philos[id], id + 1, state);
-		// printf("%d\n", philos[id]->id);
+		// printf("%d\n", philos[id].id);
 		id++;
 	}
 	if (init_forks(philos, state.set) == MUTEX_FAIL)
@@ -48,6 +48,15 @@ int ft_quit(t_philo *philos, int err)
 {
 	free(philos);
 	return(err);
+}
+
+int	init_end_game(t_game state)
+{
+	int	err;
+
+	state.game_over = 0;
+	err = pthread_mutex_init(&state.game_over_lock, 0);
+	return (err);
 }
 
 int	main(int argc, char **argv)
@@ -68,6 +77,9 @@ int	main(int argc, char **argv)
 	if (err != 0)
 		return (ft_quit(philos, err));
 	err = init_game(philos, state);
+	if (err != 0)
+		return (ft_quit(philos, err));
+	err = init_end_game(state);
 	if (err != 0)
 		return (ft_quit(philos, err));
 	err = start_simulation(philos, state);

@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/31 17:48:33 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:58:45 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,167 @@
 
 int kill_philo_if_he_starved(t_philo *philos)
 {
-	if (philos->last_eat + philos->state.set.time_to_die < philos->timestamp)
+	int err;
+
+	err = 0;
+	// printf("%d\n", (philos->last_eat + philos->state.set.time_to_die) > philos->timestamp);
+	if ((philos->last_eat + philos->state.set.time_to_die) > philos->timestamp)
 	{
-		philos->timestamp = get_time - philos->starting_time;
-		printf("%d\n %d\n died\n", philos->timestamp - philos->starting_time,
-			philos->id);
+		err = pthread_mutex_lock(&philos->state.game_over_lock);
+		if (!philos->state.game_over)
+			ft_do(philos, philos->timestamp, DIE);
+		philos->state.game_over = 1;
+		err = pthread_mutex_unlock(&philos->state.game_over_lock);
 	}
 	return (0);
 }
-int	is_eating(t_philo *philos, int time_to)
+
+int ft_do(t_philo *philos, unsigned long time_to, char *whattodo)
 {
 	int err;
 
-	err = kill_philo_if_he_starved(*philos);
-	printf("%d %d is eating\n", philos->timestamp - philos->starting_time,
-		philos->id);
+	err = kill_philo_if_he_starved(philos);
+	if (!philos->state.game_over)
+		printf("%ld %d %s\n", philos->timestamp, philos->id, whattodo);
+	philos->timestamp += time_to;
 	return (0);
+}
+
+int	tries(t_philo *philos, t_fork fork)
+{
+	int	err;
+	int	fork_is_free;
+
+	fork_is_free = 0;
+	pthread_mutex_lock(&fork.fork_is_taken);
+	if (!fork.fork_id)
+	{
+		fork.fork_id = philos->id;
+		fork_is_free = 1;
+	}
+	pthread_mutex_unlock(&fork.fork_is_taken);
+	err = 0;
+	if (fork_is_free)
+		err = ft_do(philos, 0, TAKE_FORK);
+	if (err)
+		return (-1);
+	return (fork_is_free);
+}
+
+//evaluate elapsed time since program started
+unsigned long	elapsed_time(t_philo *philos)
+{
+	struct timeval	now;
+	unsigned long	new_time;
+	
+	gettimeofday(&now, 0);
+	new_time = (now.tv_sec * 1000) + (now.tv_usec / 1000);
+	new_time -= philos->starting_time;
+	return (new_time);
+}
+
+void	add_waited_time(t_philo *philos,
+	unsigned long *time_waited)
+{
+	(*time_waited) = elapsed_time(philos) + (*time_waited);
+	philos->timestamp = elapsed_time(philos) + (*time_waited);
+}
+
+int grab_fork(t_philo *philos, t_fork fork)
+{
+	int	fork_is_free;
+	unsigned long time_waited;
+	
+	// puts("yo");
+	time_waited = 0;
+	fork_is_free = tries(philos, fork);
+	if (fork_is_free)
+		return (0);
+	if (fork_is_free == -1)
+		return (-1);
+	else if (!fork_is_free)
+	{
+		grab_fork(philos, fork);
+		add_waited_time(philos, &time_waited);
+	}
+	return (0);
+}
+
+// int	grab_fork(t_philo *philos, t_fork fork)
+// {
+// 	int	fork_is_free;
+// 	unsigned long time_waited;
+	
+// 	time_waited = 0;
+// 	fork_is_free = 0;
+// 	while (!fork_is_free)
+// 	{
+// 		fork_is_free = tries(philos, fork);
+// 		if (fork_is_free == -1)
+// 			return (-1);
+// 		else if (!fork_is_free)
+// 			add_waited_time(philos, &time_waited);
+// 	}
+// 	return (0);
+// }
+
+int	grab_forks(t_philo *philos)
+{
+	int	err;
+	
+	printf("did philo starved? %d\n", kill_philo_if_he_starved(philos));
+	if (!kill_philo_if_he_starved(philos))
+		return (0);
+	err = grab_fork(philos, philos->right_fork);
+	err = grab_fork(philos, philos->left_fork);
+	return (err);
+}
+
+int	drop_fork(t_fork fork)
+{	
+	int	err;
+	
+	err = pthread_mutex_lock(&fork.fork_is_taken);
+	fork.fork_id = 0;
+	err = pthread_mutex_unlock(&fork.fork_is_taken);
+	return (err);
+}
+
+int	drop_forks(t_philo *philos)
+{
+	int	err;
+	err = drop_fork(philos->left_fork);
+	err = drop_fork(philos->right_fork);
+	return (err);
 }
 
 int	philo_eats(t_philo *philos)
 {
 	int	err;
 
-	grab_fork(philos, philos->right_fork);
-	grab_fork(philos, philos->left_fork);
+	// puts("yo");
+	err = grab_forks(philos);
 	philos->last_eat = philos->timestamp;
-	err = is_eating(philos, philos->state.set.time_to_eat);
-	printf("%ld %d is eating\n", philos->timestamp, philos->id);
+	err = ft_do(philos, philos->state.set.time_to_eat, EAT);
 	philos->timestamp += philos->state.set.time_to_eat;
-	printf("n_meals for %d = %d\n", philos->id, philos->n_meals++);
-	release_fork(philos->left_fork);
-	release_fork(philos->right_fork);
+	err = drop_forks(philos);
 	philos->n_meals++;
+	// printf("n_meals for %d = %d\n", philos->id, philos->n_meals++);
 	return (err);
 }
 
-void	philo_sleeps(t_philo *philos)
+int	philo_sleeps(t_philo *philos)
 {
-	printf("%ld %d is sleeping\n", philos->timestamp, philos->id);
-	// printf("before : %ld\n", philos->timestamp);
-	philos->timestamp += philos->state.set.time_to_sleep;
-	// printf("after : %ld\n", philos->timestamp);
+	int	err;
+	
+	err = ft_do(philos, philos->state.set.time_to_sleep, SLEEP);
+	return (err);
 }
 
-void	philo_thinks(t_philo *philos)
+int	philo_thinks(t_philo *philos)
 {
-	printf("%ld %d is thinking\n", philos->timestamp, philos->id);
+	int	err;
+	
+	err = ft_do(philos, 0, THINK);
+	return (err);
 }

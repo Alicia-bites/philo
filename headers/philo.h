@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/31 17:36:15 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:36:59 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <pthread.h>
-// # include "../printf/printf.h"
 
+//errcodes
 # define WRONG_NARG -1
 # define WRONG_ARG -2
 # define EMPTY_STR -3
@@ -35,6 +35,13 @@
 # define THREAD_ERROR -7
 # define INT_NEG -8
 # define MUTEX_FAIL -9
+
+//a philosopher's day
+# define EAT "is eating"
+# define TAKE_FORK "takes a fork"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define  DIE "died"
 
 typedef struct s_settings
 {
@@ -47,7 +54,8 @@ typedef struct s_settings
 
 typedef struct s_game
 {
-	int				is_simulation_over;
+	int				game_over;
+	pthread_mutex_t	game_over_lock;
 	t_settings		set;
 }	t_game;
 
@@ -61,7 +69,7 @@ typedef struct s_philo
 {
 	int					id;
 	int					pid;
-	int					last_eat;
+	unsigned long		last_eat;
 	int					n_meals;
 	unsigned long		starting_time;
 	t_fork				right_fork;
@@ -84,10 +92,7 @@ int			ft_panic(int errcode);
 int			start_simulation(t_philo *philos, t_game state);
 void		*sim(void *param);
 unsigned long	get_time(t_philo *philos);
-int			sim_is_over(t_philo *philos);
-void		philo_thinks(t_philo *philos);
-void		philo_sleeps(t_philo *philos);
-void		philo_eats(t_philo *philos);
+int			game_is_over(t_philo *philos);
 
 //create fork
 int			init_forks(t_philo *philos, t_settings set);
@@ -95,9 +100,9 @@ int			give_fork_to_philos(t_philo left_philo, t_philo right_philo);
 t_fork		create_fork(void);
 
 //philo_does
-void		philo_thinks(t_philo *philos);
-void		philo_sleeps(t_philo *philos);
-void		philo_eats(t_philo *philos);
+int			ft_do(t_philo *philos, unsigned long time_to, char *whattodo);
+int		philo_thinks(t_philo *philos);
+int		philo_sleeps(t_philo *philos);
 int			philo_eats(t_philo *philos);
 
 //is_fork_free
