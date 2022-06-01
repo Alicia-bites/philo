@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:37:07 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/01 17:24:48 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:55:48 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ unsigned long	get_starting_time(t_philo *philos)
 		+ (start.tv_usec / 1000));
 }
 
-struct timeval	ft_convert(unsigned long moment_ms, 
-	struct timeval *time_ref)
+struct timeval	ft_convert(unsigned long moment_ms)
 {
 	struct timeval	moment_converted;
 
@@ -69,7 +68,7 @@ void	ft_wait_until(unsigned long moment_ms, struct timeval *time_ref)
 	struct timeval			now;
 	unsigned long			static_time_ref_long;
 
-	moment = ft_convert(moment_ms, time_ref);
+	moment = ft_convert(moment_ms);
 	if (time_ref)
 		static_time_ref = *time_ref;
 	gettimeofday(&now, 0);
@@ -82,42 +81,53 @@ void	ft_wait_until(unsigned long moment_ms, struct timeval *time_ref)
 	}
 }
 
-// unsigned long	when_is_next_meal(t_philo *philos)
-// {
-// 	unsigned long next_meal;
+unsigned long	when_is_next_meal(t_philo *philos)
+{
+	unsigned long next_meal;
 	
-// 	if (philos->state.set.n_philos % 2 != 1)
-// 	{
-// 		if (philos->last_eat == (unsigned long) -1)
-// 			philos->last_eat = 0;
-// 		return ;
-// 	}
-// 	if (philos->last_eat == (unsigned long) -1)
-// 	{
-// 		if (philos->id == philos->state.set.n_philos)
-// 			next_meal = 0;
-// 		else if (philos->id % 2 == 0)
-// 			next_meal = philos->state.set.time_to_eat;
-// 		else
-// 			next_meal = philos->state.set.time_to_eat * 2;
-// 	}
-// 	else
-// 		next_meal = philos->last_eat * philos->state.set.time_to_eat;
-// }
+	if (philos->state.set.n_philos % 2 != 1)
+	{
+		if (philos->last_eat == (unsigned long) -1)
+			philos->last_eat = 0;
+		return (0);
+	}
+	if (philos->last_eat == (unsigned long) -1)
+	{
+		if (philos->id == philos->state.set.n_philos)
+			return (next_meal = 0);
+		else if (philos->id % 2 == 0)
+			return (next_meal = philos->state.set.time_to_eat);
+		else
+			return (next_meal = philos->state.set.time_to_eat * 2);
+	}
+	else
+		return (next_meal = philos->last_eat * philos->state.set.time_to_eat);
+	return (0);
+}
 
-// void	wait_to_eat(t_philo *philos)
-// {
-// 	unsigned long	next_meal;
+void	wait_to_eat(t_philo *philos)
+{
+	unsigned long	next_meal;
 	
-// 	next_meal = when_is_next_meal(philos);
-// 	ft_wait_until(next_meal, 0);
-// 	philos->timestamp = next_meal;
-// }
+	next_meal = when_is_next_meal(philos);
+	ft_wait_until(next_meal, 0);
+	philos->timestamp = next_meal;
+}
+
+static void	wait_if_even_nb_of_philo(t_philo *philos)
+{
+	if (!(philos->id % 2))
+	{
+		philos->timestamp += philos->state.set.time_to_eat / 2;
+		ft_wait_until(philos->timestamp, 0);
+	}
+}
 	
 void	*sim(void *param)
 {
 	t_philo *philo;
 	philo = (t_philo *)param;
+	wait_if_even_nb_of_philo(philo);
 	// printf("is game over? %d\n", game_is_over(philo));
 	while (!game_is_over(philo))
 	{

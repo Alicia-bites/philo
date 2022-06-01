@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/01 15:58:45 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:00:10 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ int kill_philo_if_he_starved(t_philo *philos)
 	int err;
 
 	err = 0;
+	// printf("hellooo\n");
+	printf("timestamp : %lu\n", philos->timestamp);
+	printf("last_eat : %d\n", (int)philos->last_eat);
 	// printf("%d\n", (philos->last_eat + philos->state.set.time_to_die) > philos->timestamp);
 	if ((philos->last_eat + philos->state.set.time_to_die) > philos->timestamp)
 	{
@@ -26,14 +29,15 @@ int kill_philo_if_he_starved(t_philo *philos)
 		philos->state.game_over = 1;
 		err = pthread_mutex_unlock(&philos->state.game_over_lock);
 	}
-	return (0);
+	return (err);
 }
 
 int ft_do(t_philo *philos, unsigned long time_to, char *whattodo)
 {
 	int err;
 
-	err = kill_philo_if_he_starved(philos);
+	err = 0;
+	// err = kill_philo_if_he_starved(philos);
 	if (!philos->state.game_over)
 		printf("%ld %d %s\n", philos->timestamp, philos->id, whattodo);
 	philos->timestamp += time_to;
@@ -122,9 +126,10 @@ int	grab_forks(t_philo *philos)
 {
 	int	err;
 	
-	printf("did philo starved? %d\n", kill_philo_if_he_starved(philos));
-	if (!kill_philo_if_he_starved(philos))
-		return (0);
+	// printf("did philo starved? %d\n", kill_philo_if_he_starved(philos));
+	// if (!kill_philo_if_he_starved(philos))
+	// 	return (0);
+	// printf("hellooo\n");
 	err = grab_fork(philos, philos->right_fork);
 	err = grab_fork(philos, philos->left_fork);
 	return (err);
@@ -152,7 +157,6 @@ int	philo_eats(t_philo *philos)
 {
 	int	err;
 
-	// puts("yo");
 	err = grab_forks(philos);
 	philos->last_eat = philos->timestamp;
 	err = ft_do(philos, philos->state.set.time_to_eat, EAT);

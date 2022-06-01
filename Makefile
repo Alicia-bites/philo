@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/05/31 16:28:17 by amarchan         ###   ########.fr        #
+#    Updated: 2022/06/01 17:37:18 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ OBJS := ${SRCS:.c=.o}
 
 CC = clang
 
-CFLAGS = -g3 -pthread -Wall -Wextra -Werror
+CFLAGS = -pthread -Wall -Wextra -Werror -fPIE
 
 AR = ar rcs
 
