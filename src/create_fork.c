@@ -1,36 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_fork.c                                      :+:      :+:    :+:   */
+/*   create_fork->c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:01:45 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/31 17:13:25 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:41:00 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-t_fork	create_fork(void)
-{
-	t_fork		fork;
-	
-	fork.fork_id = 0;
-	if (pthread_mutex_init(&fork.fork_is_taken, 0))
-		fork.fork_id = -1;
+t_fork	*create_fork(void)
+{	
+	t_fork			*fork;
+	int				err;
+
+	fork = malloc(sizeof(t_fork));
+	if (!fork)
+		return (0);
+	printf("%p\n", fork);
+	fork->fork_id = 0;
+	err = pthread_mutex_init(&fork->fork_is_taken, 0);
+	if (err)
+	{
+		free(fork);
+		return (0);
+	}
 	return (fork);
 }
 
-int	give_fork_to_philos(t_philo left_philo, t_philo right_philo)
+int	give_fork_to_philos(t_philo *left_philo, t_philo *right_philo)
 {
-	left_philo.left_fork = create_fork();
-	// printf("left philo, left fork ID : %d\n", left_philo.left_fork.fork_id);
-	if (left_philo.left_fork.fork_id == -1)
-		return(ft_panic(MUTEX_FAIL));
-	right_philo.right_fork = left_philo.left_fork;
-	right_philo.right_fork.fork_id = left_philo.left_fork.fork_id;
-	// printf("right philo, right fork ID : %d\n", right_philo.right_fork.fork_id);
+	left_philo->left_fork = create_fork();
+	if (!left_philo->left_fork)
+		return (0);
+	// printf("left philo, left fork ID : %d\n", left_philo->left_fork->fork_id);
+	// if (left_philo->left_fork->fork_id == -1)
+	// 	return(ft_panic(MUTEX_FAIL));
+	right_philo->right_fork = left_philo->left_fork;
+	right_philo->right_fork->fork_id = left_philo->left_fork->fork_id;
+	// printf("right philo, right fork ID : %d\n", right_philo.right_fork->fork_id);
 	return (0);
 }
 
@@ -49,9 +60,10 @@ int	init_forks(t_philo *philos, t_settings set)
 		// printf("left_philo = %d\n", left_philo.id);
 		// printf("right_philo = %d\n", philos[i].id);
 		// puts("---------------------------------------------------------------");
-		if (give_fork_to_philos(left_philo, philos[i]) == MUTEX_FAIL)
+		if (give_fork_to_philos(&left_philo, &philos[i]) == MUTEX_FAIL)
 			return (MUTEX_FAIL);
 		i++;
+		printf("%d | %p\n", i, philos[i].right_fork);
 	}
 	return (0);
 }

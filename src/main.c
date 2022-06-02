@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 11:15:21 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:53:26 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void init_philo(t_philo *philo, int id, t_game state)
 	// printf("n_meals : %d\n", philo->n_meals);
 	philo->state = state;
 	// printf("philo->state : %d\n", philo->state);
+	philo->right_fork = 0;
+	philo->left_fork = 0;
 }
 
 //creating as many t_philo structures as there are philos

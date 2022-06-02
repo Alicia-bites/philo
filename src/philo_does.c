@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 14:17:09 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:55:36 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	philo_eats(t_philo *philos)
 	err = ft_do(philos, philos->state.set.time_to_eat, EAT);
 	philos->last_eat = philos->timestamp;
 	// printf("philo ID : %d | last_eat = %ld\n", philos->id, philos->last_eat);
+	printf("philo ID : %d | philos->timestamp = %ld\n", philos->id, philos->timestamp);
 	philos->timestamp += philos->state.set.time_to_eat;
 	err = drop_forks(philos);
 	philos->n_meals++;

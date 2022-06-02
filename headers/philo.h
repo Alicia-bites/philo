@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 12:40:28 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 15:05:27 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ typedef struct s_philo
 	unsigned long		last_eat;
 	int					n_meals;
 	unsigned long		starting_time;
-	t_fork				right_fork;
-	t_fork				left_fork;
+	t_fork				*right_fork;
+	t_fork				*left_fork;
 	unsigned long		timestamp;
 	pthread_t			thread;
+	pthread_mutex_t		*print;
 	t_game				state;
 }	t_philo;
 
@@ -111,8 +112,8 @@ unsigned long	when_is_next_meal(t_philo *philos);
 
 //create fork
 int				init_forks(t_philo *philos, t_settings set);
-int				give_fork_to_philos(t_philo left_philo, t_philo right_philo);
-t_fork			create_fork(void);
+int				give_fork_to_philos(t_philo *left_philo, t_philo *right_philo);
+t_fork			*create_fork(void);
 
 //philo_does
 int				ft_do(t_philo *philos, unsigned long time_to, char *whattodo);
@@ -122,10 +123,10 @@ int				philo_eats(t_philo *philos);
 
 //fork
 void			add_waited_time(t_philo *philos, unsigned long *time_waited);
-int				tries(t_philo *philos, t_fork fork);
-int 			grab_fork(t_philo *philos, t_fork fork);
+int				tries(t_philo *philos, t_fork *fork);
+int 			grab_fork(t_philo *philos, t_fork *fork);
 int				grab_forks(t_philo *philos);
-int				drop_fork(t_fork fork);
+int				drop_fork(t_fork *fork);
 int				drop_forks(t_philo *philos);
 
 //is_fork_free
