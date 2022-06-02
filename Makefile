@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/06/01 17:37:18 by amarchan         ###   ########.fr        #
+#    Updated: 2022/06/02 12:38:33 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,10 @@ SRCS =	src/main.c \
 		src/create_fork.c \
 		src/philo_does.c \
 		src/is_fork_free.c \
+		src/time.c \
+		src/time_utils.c \
+		src/wait.c \
+		src/fork.c \
 		utils/ft_atoi.c \
 		utils/ft_atoll.c \
 		utils/ft_isspace.c \
@@ -39,7 +43,7 @@ OBJS := ${SRCS:.c=.o}
 
 CC = clang
 
-CFLAGS = -pthread -Wall -Wextra -Werror -fPIE
+CFLAGS = -pthread -Wall -Wextra -Werror -fPIE -g3
 
 AR = ar rcs
 
