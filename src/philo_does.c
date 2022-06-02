@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 12:43:08 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:17:09 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	philo_sleeps(t_philo *philos)
 {
 	int	err;
 	
+	// printf("%d\n", philos->state.set.time_to_sleep);
+	// printf("%lu\n", philos->timestamp);
 	err = ft_do(philos, philos->state.set.time_to_sleep, SLEEP);
 	return (err);
 }

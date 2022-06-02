@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 12:48:37 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:10:54 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ unsigned long	when_is_next_meal(t_philo *philos)
 	
 	if (philos->state.set.n_philos % 2 != 1)
 	{
-		if (philos->last_eat == (unsigned long) - 1)
+		if (philos->last_eat == -1UL)
 			philos->last_eat = 0;
+		if (philos->id % 2 == 0)
+			return(next_meal = philos->state.set.time_to_eat);
 		return (0);
 	}
-	else if (philos->last_eat == (unsigned long) - 1)
+	else if (philos->last_eat == -1UL)
 	{
 		if (philos->id == philos->state.set.n_philos)
 			return (next_meal = 0);
@@ -41,7 +43,7 @@ void	wait_to_eat(t_philo *philos)
 	unsigned long	next_meal;
 	
 	next_meal = when_is_next_meal(philos);
-	printf("philo ID %d | next_meal is in : %ld ms\n", philos->id, next_meal);
+	// printf("philo ID %d | next_meal is in : %ld ms\n", philos->id, next_meal);
 	ft_wait_until(next_meal, 0);
 	philos->timestamp = next_meal;
 }
