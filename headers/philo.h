@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 18:59:19 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:18:16 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ typedef struct s_philo
 	unsigned long		timestamp;
 	pthread_t			thread;
 	pthread_mutex_t		*print;
-	t_game				state;
+	t_game				*state;
 }	t_philo;
 
 // main
-int				init_game(t_philo *philos, t_game state);
-void 			init_philo(t_philo *philo, int id, t_game state);
+int				init_game(t_philo *philos, t_game *state);
+void 			init_philo(t_philo *philo, int id, t_game *state);
 
 //parsing
 char 			**check_args(int argc, char **argv, int *err);
@@ -90,10 +90,10 @@ int				ft_parse(int argc, char **argv, t_game *state);
 int				ft_panic(int errcode);
 
 //lock_printf
-int	init_printf_lock(t_philo *philos);
+int				init_printf_lock(t_philo *philos);
 
 //start_simulation
-int				start_simulation(t_philo *philos, t_game state);
+int				start_simulation(t_philo *philos, t_game *state);
 void			*sim(void *param);
 unsigned long	get_time(t_philo *philos);
 int				game_is_over(t_philo *philos);
@@ -151,7 +151,7 @@ int				isinteger(char *s);
 void			ft_bzero(void *s, unsigned int n);
 
 //end_game
-int				init_end_game(t_game state);
+int				init_end_game(t_game *state);
 int 			kill_philo_if_he_starved(t_philo *philos);
 int				game_is_over(t_philo *philos);
 

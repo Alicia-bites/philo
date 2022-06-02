@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 14:10:54 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:19:16 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ unsigned long	when_is_next_meal(t_philo *philos)
 {
 	unsigned long next_meal;
 	
-	if (philos->state.set.n_philos % 2 != 1)
+	if (philos->state->set.n_philos % 2 != 1)
 	{
 		if (philos->last_eat == -1UL)
 			philos->last_eat = 0;
 		if (philos->id % 2 == 0)
-			return(next_meal = philos->state.set.time_to_eat);
+			return(next_meal = philos->state->set.time_to_eat);
 		return (0);
 	}
 	else if (philos->last_eat == -1UL)
 	{
-		if (philos->id == philos->state.set.n_philos)
+		if (philos->id == philos->state->set.n_philos)
 			return (next_meal = 0);
 		else if (philos->id % 2 == 0)
-			return (next_meal = philos->state.set.time_to_eat);
+			return (next_meal = philos->state->set.time_to_eat);
 		else
-			return (next_meal = philos->state.set.time_to_eat * 2);
+			return (next_meal = philos->state->set.time_to_eat * 2);
 	}
 	else
-		return (next_meal = philos->last_eat + (3 * philos->state.set.time_to_eat));		
+		return (next_meal = philos->last_eat + (3 * philos->state->set.time_to_eat));		
 	return (0);
 }
 
@@ -52,7 +52,7 @@ void	wait_if_even_nb_of_philo(t_philo *philos)
 {
 	if (!(philos->id % 2))
 	{
-		philos->timestamp += philos->state.set.time_to_eat / 2;
+		philos->timestamp += philos->state->set.time_to_eat / 2;
 		ft_wait_until(philos->timestamp, 0);
 	}
 }

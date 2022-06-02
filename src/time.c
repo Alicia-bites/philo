@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:00:53 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 12:36:35 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:19:00 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_starting_time(t_philo *philos)
 	// printf("%ld\n", philos->starting_time = (start.tv_sec * 1000)
 	// 	+ (start.tv_usec / 1000));
 	starting_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
-	while (i < philos->state.set.n_philos)
+	while (i < philos->state->set.n_philos)
 	{
 		philos[i].starting_time = starting_time;
 		// printf("%lu\n", philos[i].starting_time);

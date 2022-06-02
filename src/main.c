@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 19:10:21 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:18:29 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //initialize id, when last_meal was, number of meals eaten and pointer to
 //state for each philosopher.
-void init_philo(t_philo *philo, int id, t_game state)
+void init_philo(t_philo *philo, int id, t_game *state)
 {
 	philo->id = id;
 	// printf("id : %d\n", philo->id);
@@ -29,19 +29,19 @@ void init_philo(t_philo *philo, int id, t_game state)
 }
 
 //creating as many t_philo structures as there are philos
-int	init_game(t_philo *philos, t_game state)
+int	init_game(t_philo *philos, t_game *state)
 {
 	int	id;
 
 	id = 0;
-	// printf("%d\n", state.set.n_philos);
-	while (id < state.set.n_philos)
+	// printf("%d\n", state->set.n_philos);
+	while (id < state->set.n_philos)
 	{
 		init_philo(&philos[id], id + 1, state);
 		// printf("%d\n", philos[id].id);
 		id++;
 	}
-	if (init_forks(philos, state.set) == MUTEX_FAIL)
+	if (init_forks(philos, state->set) == MUTEX_FAIL)
 		return (MUTEX_FAIL);
 	return (0);
 }
@@ -55,11 +55,13 @@ int ft_quit(t_philo *philos, int err)
 int	main(int argc, char **argv)
 {
 	t_philo				*philos;
-	t_game				state;
+	t_game				*state;
 	int					err;
 	
 	err = 0;
-	ft_bzero(&state, sizeof(t_game));
+	state = malloc(sizeof(t_game));
+	if (!state)
+		return (1);
 	philos = malloc(sizeof(t_philo) * (ft_atoi(argv[1])));
 	if (!philos)
 		ft_panic(MALLOC_FAILURE);
@@ -69,7 +71,7 @@ int	main(int argc, char **argv)
 		err = ft_panic(WRONG_NARG);
 	if (err != 0)
 		return (ft_quit(philos, err));
-	err = init_game(philos, &state);
+	err = init_game(philos, state);
 	if (err != 0)
 		return (ft_quit(philos, err));
 	err = init_end_game(state);
