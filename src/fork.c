@@ -37,10 +37,12 @@ int	tries(t_philo *philos, t_fork *fork)
 	pthread_mutex_lock(&fork->fork_is_taken);
 	if (!fork->fork_id)
 	{
+		// printf("fork_id = %d\n", fork->fork_id);
 		fork->fork_id = philos->id;
 		fork_is_free = 1;
 	}
 	pthread_mutex_unlock(&fork->fork_is_taken);
+	// printf("fork_id = %d\n", fork->fork_id);
 	err = 0;
 	if (fork_is_free)
 		err = ft_do(philos, 0, TAKE_FORK);
@@ -53,15 +55,15 @@ int	grab_fork(t_philo *philos, t_fork *fork)
 {
 	int	is_fork_taken;
 	unsigned long	time_waited;
-	// int	end;
+	int	end;
 
 	is_fork_taken = 0;
 	time_waited = 0;
 	while (!is_fork_taken)
 	{
-		// end = !kill_philo_if_he_starve_to_death(philos);
-		// if (end)
-		// 	return (0);
+		end = !kill_philo_if_he_starved(philos);
+		if (end)
+			return (0);
 		is_fork_taken = tries(philos, fork);
 		// printf("is fork taken %d\n", is_fork_taken);
 		if (is_fork_taken == -1)

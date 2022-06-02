@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 17:34:14 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:10:21 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,20 @@ int	main(int argc, char **argv)
 	if (!philos)
 		ft_panic(MALLOC_FAILURE);
 	if (argc == 5 || argc == 6)
-		err = ft_parse(argc, argv, &state);
+		err = ft_parse(argc, argv, state);
 	else 
 		err = ft_panic(WRONG_NARG);
 	if (err != 0)
 		return (ft_quit(philos, err));
-	err = init_game(philos, state);
+	err = init_game(philos, &state);
 	if (err != 0)
 		return (ft_quit(philos, err));
 	err = init_end_game(state);
 	if (err != 0)
 		return (ft_quit(philos, err));
+	// err = init_printf_lock(philos);
+	// if (err != 0)
+	// 	return (ft_quit(philos, err));
 	err = start_simulation(philos, state);
 	if (err != 0)
 		return (ft_quit(philos, err));

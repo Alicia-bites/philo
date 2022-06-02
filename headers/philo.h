@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 17:34:34 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 18:59:19 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void 			init_philo(t_philo *philo, int id, t_game state);
 char 			**check_args(int argc, char **argv, int *err);
 int				ft_parse(int argc, char **argv, t_game *state);
 int				ft_panic(int errcode);
+
+//lock_printf
+int	init_printf_lock(t_philo *philos);
 
 //start_simulation
 int				start_simulation(t_philo *philos, t_game state);

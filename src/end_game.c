@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:31:28 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 18:02:43 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:09:56 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int kill_philo_if_he_starved(t_philo *philos)
 	// printf("hellooo\n");
 	// printf("timestamp : %lu\n", philos->timestamp);
 	// printf("last_eat : %d\n", (int)philos->last_eat);
-	// printf("%d\n", (philos->last_eat + philos->state.set.time_to_die) > philos->timestamp);
+	printf("%d\n", (philos->last_eat + philos->state.set.time_to_die) > philos->timestamp);
 	if ((philos->last_eat + philos->state.set.time_to_die) > philos->timestamp)
 	{
 		err = pthread_mutex_lock(&philos->state.game_over_lock);
