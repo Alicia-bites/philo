@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 14:53:26 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:34:14 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,6 @@ int ft_quit(t_philo *philos, int err)
 {
 	free(philos);
 	return(err);
-}
-
-int	init_end_game(t_game state)
-{
-	int	err;
-
-	state.game_over = 0;
-	err = pthread_mutex_init(&state.game_over_lock, 0);
-	return (err);
 }
 
 int	main(int argc, char **argv)

@@ -6,28 +6,17 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:37:07 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 12:36:56 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:31:55 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
-
-int	game_is_over(t_philo *philos)
-{
-	// printf("n meals %d\n", philos->n_meals);
-	// printf("n meals %d\n", philos->state.set->n_meals);
-	if (philos->n_meals != -1 && philos->n_meals == philos->state.set.n_meals)
-		return (1);
-	return (0);
-}
 
 void	*sim(void *param)
 {
 	t_philo *philo;
 	philo = (t_philo *)param;
 	wait_if_even_nb_of_philo(philo);
-	// printf("is game over? %d\n", game_is_over(philo));
-	// printf("starting time baby : %lu\n", philo->starting_time);
 	while (!game_is_over(philo))
 	{
 		wait_to_eat(philo);

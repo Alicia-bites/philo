@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 15:05:27 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:34:34 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,11 @@ void			*ft_memcpy(void *s1, const void *s2, size_t n);
 void			ft_strip(char *s);
 int				isinteger(char *s);
 void			ft_bzero(void *s, unsigned int n);
+
+//end_game
+int				init_end_game(t_game state);
+int 			kill_philo_if_he_starved(t_philo *philos);
+int				game_is_over(t_philo *philos);
 
 //main
 #endif 

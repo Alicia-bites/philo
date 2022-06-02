@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/06/02 12:38:33 by amarchan         ###   ########.fr        #
+#    Updated: 2022/06/02 17:34:49 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS =	src/main.c \
 		src/time_utils.c \
 		src/wait.c \
 		src/fork.c \
+		src/end_game.c \
 		utils/ft_atoi.c \
 		utils/ft_atoll.c \
 		utils/ft_isspace.c \

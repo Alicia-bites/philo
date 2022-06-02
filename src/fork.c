@@ -12,14 +12,27 @@
 
 #include "../headers/philo.h"
 
+static void	wait_before_new_try(t_philo *philos, unsigned long *time_waited)
+{
+	unsigned long	new_try;
+
+	new_try = philos->timestamp + 0.2;
+	ft_wait_until(new_try, 0);
+	*time_waited += 0.2;
+	if (*time_waited > 1000)
+	{
+		*time_waited = 0;
+		philos->timestamp++;
+	}
+}
+
 int	tries(t_philo *philos, t_fork *fork)
 {
 	int	err;
 	int	fork_is_free;
 
-	printf("%p\n", fork);
 	if (!fork)
-		return (0);
+		return (-1);
 	fork_is_free = 0;
 	pthread_mutex_lock(&fork->fork_is_taken);
 	if (!fork->fork_id)
@@ -36,50 +49,25 @@ int	tries(t_philo *philos, t_fork *fork)
 	return (fork_is_free);
 }
 
-void	add_waited_time(t_philo *philos, unsigned long *time_waited)
-{
-	(*time_waited) = elapsed_time_since_start(philos) + (*time_waited);
-	philos->timestamp = (*time_waited);
-}
-
-// int grab_fork(t_philo *philos, t_fork *fork)
-// {
-// 	int	fork_is_free;
-// 	unsigned long time_waited;
-	
-// 	time_waited = 0;
-// 	fork_is_free = tries(philos, fork);
-// 	// printf("%d\n", fork_is_free);
-// 	if (fork_is_free)
-// 		return (0);
-// 	if (fork_is_free == -1)
-// 		return (-1);
-// 	else if (!fork_is_free)
-// 	{
-// 		puts("yo");
-// 		add_waited_time(philos, &time_waited);
-// 		grab_fork(philos, fork);
-// 	}
-// 	return (0);
-// }
-
 int	grab_fork(t_philo *philos, t_fork *fork)
 {
-	int	fork_is_free;
-	unsigned long time_waited;
-	
+	int	is_fork_taken;
+	unsigned long	time_waited;
+	// int	end;
+
+	is_fork_taken = 0;
 	time_waited = 0;
-	fork_is_free = 0;
-	while (!fork_is_free)
+	while (!is_fork_taken)
 	{
-		fork_is_free = tries(philos, fork);
-		if (fork_is_free == -1)
-			return (-1);
-		else if (!fork_is_free)
-		{
-			puts("YO");
-			add_waited_time(philos, &time_waited);			
-		}
+		// end = !kill_philo_if_he_starve_to_death(philos);
+		// if (end)
+		// 	return (0);
+		is_fork_taken = tries(philos, fork);
+		// printf("is fork taken %d\n", is_fork_taken);
+		if (is_fork_taken == -1)
+			return (1);
+		if (!is_fork_taken)
+			wait_before_new_try(philos, &time_waited);
 	}
 	return (0);
 }
@@ -99,7 +87,9 @@ int	grab_forks(t_philo *philos)
 int	drop_fork(t_fork *fork)
 {	
 	int	err;
-	
+
+	if (!fork)
+		return (0);
 	err = pthread_mutex_lock(&fork->fork_is_taken);
 	fork->fork_id = 0;
 	err = pthread_mutex_unlock(&fork->fork_is_taken);
@@ -109,6 +99,7 @@ int	drop_fork(t_fork *fork)
 int	drop_forks(t_philo *philos)
 {
 	int	err;
+
 	err = drop_fork(philos->left_fork);
 	err = drop_fork(philos->right_fork);
 	return (err);
