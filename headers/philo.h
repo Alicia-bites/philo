@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 19:18:16 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/03 11:49:32 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int				game_is_over(t_philo *philos);
 //time
 unsigned long	elapsed_time_since_start(t_philo *philos);
 void			get_starting_time(t_philo *philos);
-void			ft_wait_until(unsigned long moment_ms, struct timeval *time_ref);
+void			wait_until(unsigned long moment_ms, struct timeval *time_ref);
 
 //time_utils
 unsigned long	time_diff(struct timeval a, struct timeval b);
@@ -109,9 +109,9 @@ int				is_greater_than(unsigned long a, unsigned long b);
 struct timeval	ft_convert(unsigned long moment_ms);
 
 //wait
+void	wait_and_add_waited_time(t_philo *philos, unsigned long *time_waited);
 void			wait_if_even_nb_of_philo(t_philo *philos);
-void			wait_to_eat(t_philo *philos);
-unsigned long	when_is_next_meal(t_philo *philos);
+void			organize_queue_to_eat(t_philo *philos);
 
 //create fork
 int				init_forks(t_philo *philos, t_settings set);
@@ -152,7 +152,7 @@ void			ft_bzero(void *s, unsigned int n);
 
 //end_game
 int				init_end_game(t_game *state);
-int 			kill_philo_if_he_starved(t_philo *philos);
+int 			philo_starved(t_philo *philos);
 int				game_is_over(t_philo *philos);
 
 //main

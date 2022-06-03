@@ -6,53 +6,60 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 19:19:16 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/03 12:12:35 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-unsigned long	when_is_next_meal(t_philo *philos)
+void	organize_queue_to_eat(t_philo *philos)
 {
 	unsigned long next_meal;
 	
+	wait_if_even_nb_of_philo(philos);
+	next_meal = 0;
 	if (philos->state->set.n_philos % 2 != 1)
 	{
 		if (philos->last_eat == -1UL)
 			philos->last_eat = 0;
-		if (philos->id % 2 == 0)
-			return(next_meal = philos->state->set.time_to_eat);
-		return (0);
+		return ;
 	}
-	else if (philos->last_eat == -1UL)
+	if (philos->last_eat == -1UL)
 	{
 		if (philos->id == philos->state->set.n_philos)
-			return (next_meal = 0);
+			next_meal = 0;
 		else if (philos->id % 2 == 0)
-			return (next_meal = philos->state->set.time_to_eat);
+			next_meal = philos->state->set.time_to_eat;
 		else
-			return (next_meal = philos->state->set.time_to_eat * 2);
+			next_meal = philos->state->set.time_to_eat * 2;
 	}
 	else
-		return (next_meal = philos->last_eat + (3 * philos->state->set.time_to_eat));		
-	return (0);
-}
-
-void	wait_to_eat(t_philo *philos)
-{
-	unsigned long	next_meal;
-	
-	next_meal = when_is_next_meal(philos);
-	// printf("philo ID %d | next_meal is in : %ld ms\n", philos->id, next_meal);
-	ft_wait_until(next_meal, 0);
+		next_meal = philos->last_eat + (3 * philos->state->set.time_to_eat);
+	printf("next_meal is in : %lu\n", next_meal);
+	wait_until(next_meal, 0);
 	philos->timestamp = next_meal;
 }
 
+//wait half the time set to eat by user before starting if even n_philos
 void	wait_if_even_nb_of_philo(t_philo *philos)
 {
 	if (!(philos->id % 2))
 	{
-		philos->timestamp += philos->state->set.time_to_eat / 2;
-		ft_wait_until(philos->timestamp, 0);
+		philos->timestamp += philos->state->set.time_to_eat;
+		wait_until(philos->timestamp, 0);
+	}
+}
+
+void	wait_and_add_waited_time(t_philo *philos, unsigned long *time_waited)
+{
+	unsigned long	new_try;
+
+	new_try = philos->timestamp + 0.2;
+	wait_until(new_try, 0);
+	*time_waited += 0.2;
+	if (*time_waited > 1000)
+	{
+		*time_waited = 0;
+		philos->timestamp++;
 	}
 }

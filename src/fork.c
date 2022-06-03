@@ -12,20 +12,6 @@
 
 #include "../headers/philo.h"
 
-static void	wait_before_new_try(t_philo *philos, unsigned long *time_waited)
-{
-	unsigned long	new_try;
-
-	new_try = philos->timestamp + 0.2;
-	ft_wait_until(new_try, 0);
-	*time_waited += 0.2;
-	if (*time_waited > 1000)
-	{
-		*time_waited = 0;
-		philos->timestamp++;
-	}
-}
-
 int	tries(t_philo *philos, t_fork *fork)
 {
 	int	err;
@@ -34,6 +20,7 @@ int	tries(t_philo *philos, t_fork *fork)
 	if (!fork)
 		return (-1);
 	fork_is_free = 0;
+	// printf("fork_is_free : %d\n", fork_is_free);
 	pthread_mutex_lock(&fork->fork_is_taken);
 	if (!fork->fork_id)
 	{
@@ -61,7 +48,8 @@ int	grab_fork(t_philo *philos, t_fork *fork)
 	time_waited = 0;
 	while (!is_fork_taken)
 	{
-		end = !kill_philo_if_he_starved(philos);
+		// printf("end = %d\n", end);
+		end = !philo_starved(philos);
 		if (end)
 			return (0);
 		is_fork_taken = tries(philos, fork);
@@ -69,7 +57,7 @@ int	grab_fork(t_philo *philos, t_fork *fork)
 		if (is_fork_taken == -1)
 			return (1);
 		if (!is_fork_taken)
-			wait_before_new_try(philos, &time_waited);
+			wait_and_add_waited_time(philos, &time_waited);
 	}
 	return (0);
 }
@@ -78,8 +66,8 @@ int	grab_forks(t_philo *philos)
 {
 	int	err;
 	
-	// printf("did philo starved? %d\n", kill_philo_if_he_starved(philos));
-	// if (!kill_philo_if_he_starved(philos))
+	// printf("did philo starved? %d\n", philo_starved(philos));
+	// if (!philo_starved(philos))
 	// 	return (0);
 	err = grab_fork(philos, philos->right_fork);
 	err = grab_fork(philos, philos->left_fork);

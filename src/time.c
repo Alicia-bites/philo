@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:00:53 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 19:19:00 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/03 11:12:43 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ unsigned long	elapsed_time_since_start(t_philo *philos)
 }
 
 //make philo wait until moment_ms
-void	ft_wait_until(unsigned long moment_ms, struct timeval *time_ref)
+void	wait_until(unsigned long moment_ms, struct timeval *time_ref)
 {
 	static struct timeval	static_time_ref;
 	struct	timeval			moment;

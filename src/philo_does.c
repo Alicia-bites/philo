@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 19:28:58 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/03 13:09:26 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ int ft_do(t_philo *philos, unsigned long time_to, char *whattodo)
 {
 	int err;
 
+	// printf("time_to = %lu | timestamp = %lu\n", time_to, philos->timestamp);
 	err = 0;
-	err = kill_philo_if_he_starved(philos);
+	err = philo_starved(philos);
 	err = pthread_mutex_lock(&philos->state->game_over_lock);
 	if (!philos->state->game_over)
 		printf("%lu %d %s\n", philos->timestamp, philos->id, whattodo);
 	err = pthread_mutex_unlock(&philos->state->game_over_lock);
 	philos->timestamp += time_to;
-	ft_wait_until(philos->timestamp, 0);
+	wait_until(philos->timestamp, 0);
 	// printf(" philo ID : %d | timestamp %ld\n", philos->id, philos->timestamp);
-	return (0);
+	return (err);
 }
 
 int	philo_eats(t_philo *philos)
@@ -33,7 +34,7 @@ int	philo_eats(t_philo *philos)
 	int	err;
 
 	err = grab_forks(philos);
-	
+	// printf("sup\n");
 	philos->last_eat = philos->timestamp;
 	// printf("philo ID : %d | last_eat = %ld\n", philos->id, philos->last_eat);
 	// printf("philo ID : %d | philos->timestamp = %ld\n", philos->id, philos->timestamp);
