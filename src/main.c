@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 10:19:31 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:47:46 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,17 @@ void init_philo(t_philo *philo, int id, t_game *state)
 	// printf("philo->state : %d\n", philo->state);
 	philo->right_fork = 0;
 	philo->left_fork = 0;
+	philo->timestamp = 0;
 }
 
 //creating as many t_philo structures as there are philos
 int	init_game(t_philo *philos, t_game *state)
 {
 	int	id;
+	int	err;
 
 	id = 0;
+	err = 0;
 	// printf("%d\n", state->set.n_philos);
 	while (id < state->set.n_philos)
 	{
@@ -43,13 +46,9 @@ int	init_game(t_philo *philos, t_game *state)
 	}
 	if (init_forks(philos, state->set) == MUTEX_FAIL)
 		return (MUTEX_FAIL);
-	return (0);
-}
-
-int ft_quit(t_philo *philos, int err)
-{
-	free(philos);
-	return(err);
+	err = init_end_game(state);
+	err = start_simulation(philos, state);
+	return (err);
 }
 
 int	main(int argc, char **argv)
@@ -59,6 +58,8 @@ int	main(int argc, char **argv)
 	int					err;
 	
 	err = 0;
+	if (argc != 5 && argc != 6)
+		return (ft_panic(WRONG_NARG));
 	state = malloc(sizeof(t_game));
 	if (!state)
 		return (1);
@@ -67,21 +68,11 @@ int	main(int argc, char **argv)
 		ft_panic(MALLOC_FAILURE);
 	if (argc == 5 || argc == 6)
 		err = ft_parse(argc, argv, state);
-	else 
-		err = ft_panic(WRONG_NARG);
 	if (err != 0)
-		return (ft_quit(philos, err));
+		return (ft_clean(philos, state, err));
 	err = init_game(philos, state);
-	if (err != 0)
-		return (ft_quit(philos, err));
-	err = init_end_game(state);
-	if (err != 0)
-		return (ft_quit(philos, err));
 	// err = init_printf_lock(philos);
 	// if (err != 0)
 	// 	return (ft_quit(philos, err));
-	err = start_simulation(philos, state);
-	if (err != 0)
-		return (ft_quit(philos, err));
-	return (0);
+	return (ft_clean_with_forks(philos, state, err));
 }

@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 11:49:32 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:29:13 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,11 @@ void			ft_bzero(void *s, unsigned int n);
 int				init_end_game(t_game *state);
 int 			philo_starved(t_philo *philos);
 int				game_is_over(t_philo *philos);
+
+//clean
+int 			ft_clean(t_philo *philos, t_game *state, int err);
+int 			ft_clean_with_forks(t_philo *philos, t_game *state, int err);
+void			free_forks(t_philo *philos);
 
 //main
 #endif 

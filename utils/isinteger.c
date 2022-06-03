@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 13:44:01 by amarchan          #+#    #+#             */
-/*   Updated: 2022/05/26 13:46:46 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:01:44 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	isinteger(char *s)
 		if (s[i] == '-' || s[i] == '+')
 			i++;
 		if (!ft_isdigit(s[i]))
-			ft_panic(NOT_INT);
+			return (0);
 		i++;
 	}
 	return (1);
