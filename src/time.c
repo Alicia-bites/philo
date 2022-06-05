@@ -6,32 +6,18 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:00:53 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 11:12:43 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:11:43 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-void	get_starting_time(t_philo *philos)
+void	get_starting_time()
 {
 	struct timeval	start;
-	unsigned long	starting_time;
-	int	i;
 
-	i = 0;
 	gettimeofday(&start, 0);
-	// printf("%ld\n", start.tv_sec);
-	// printf("%ld\n", start.tv_usec);
-	// printf("%ld\n", philos->starting_time = (start.tv_sec * 1000)
-	// 	+ (start.tv_usec / 1000));
-	starting_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
-	while (i < philos->state->set.n_philos)
-	{
-		philos[i].starting_time = starting_time;
-		// printf("%lu\n", philos[i].starting_time);
-		i++;
-	}
-	// printf("starting time %lu\n", philos->starting_time);
+	wait_until(0, &start);
 }
 
 //evaluate elapsed time since program started

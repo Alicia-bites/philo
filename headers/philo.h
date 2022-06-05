@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/05 15:15:44 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:29:07 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int				game_is_over(t_philo *philos);
 
 //time
 unsigned long	elapsed_time_since_start(t_philo *philos);
-void			get_starting_time(t_philo *philos);
+void			get_starting_time();
 void			wait_until(unsigned long moment_ms, struct timeval *time_ref);
 
 //time_utils
