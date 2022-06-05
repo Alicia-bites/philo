@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 14:29:13 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 14:19:11 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_philo
 	t_fork				*left_fork;
 	unsigned long		timestamp;
 	pthread_t			thread;
-	pthread_mutex_t		*print;
+	pthread_mutex_t		printf_mutex;
 	t_game				*state;
 }	t_philo;
 

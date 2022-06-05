@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 14:47:46 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 14:18:20 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	init_game(t_philo *philos, t_game *state)
 	}
 	if (init_forks(philos, state->set) == MUTEX_FAIL)
 		return (MUTEX_FAIL);
+	err = init_printf_lock(philos);
 	err = init_end_game(state);
 	err = start_simulation(philos, state);
 	return (err);
@@ -71,8 +72,5 @@ int	main(int argc, char **argv)
 	if (err != 0)
 		return (ft_clean(philos, state, err));
 	err = init_game(philos, state);
-	// err = init_printf_lock(philos);
-	// if (err != 0)
-	// 	return (ft_quit(philos, err));
 	return (ft_clean_with_forks(philos, state, err));
 }
