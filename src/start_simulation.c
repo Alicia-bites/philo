@@ -6,13 +6,13 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:37:07 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 12:12:10 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 14:56:04 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-void	*sim(void *param)
+void	*game(void *param)
 {
 	t_philo *philo;
 	philo = (t_philo *)param;
@@ -38,7 +38,7 @@ int	start_simulation(t_philo *philos, t_game *state)
 	get_starting_time(philos);
 	while (i < state->set.n_philos)
 	{
-		err = pthread_create(&philos[i].thread, 0, &sim, &philos[i]);
+		err = pthread_create(&philos[i].thread, 0, &game, &philos[i]);
 		// printf("err = %d\n", err);
 		if (err != 0)
 			return (ft_panic(THREAD_ERROR));

@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 12:12:35 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 14:58:01 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	organize_queue_to_eat(t_philo *philos)
 	}
 	else
 		next_meal = philos->last_eat + (3 * philos->state->set.time_to_eat);
-	printf("next_meal is in : %lu\n", next_meal);
+	// printf("next_meal is in : %lu\n", next_meal);
 	wait_until(next_meal, 0);
 	philos->timestamp = next_meal;
 }

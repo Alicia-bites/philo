@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/05 14:19:11 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 14:56:12 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int				init_printf_lock(t_philo *philos);
 
 //start_simulation
 int				start_simulation(t_philo *philos, t_game *state);
-void			*sim(void *param);
+void			*game(void *param);
 unsigned long	get_time(t_philo *philos);
 int				game_is_over(t_philo *philos);
 

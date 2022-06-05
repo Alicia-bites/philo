@@ -6,11 +6,22 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 13:09:26 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:10:11 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
+
+int	ft_print(t_philo *philos, char *whattodo)
+{
+	int	err;
+	
+	err = 0;
+	err = pthread_mutex_lock(&philos->printf_mutex);
+	printf("%lu %d %s\n", philos->timestamp, philos->id, whattodo);
+	err = pthread_mutex_unlock(&philos->printf_mutex);
+	return (err);
+}
 
 int ft_do(t_philo *philos, unsigned long time_to, char *whattodo)
 {
@@ -21,7 +32,7 @@ int ft_do(t_philo *philos, unsigned long time_to, char *whattodo)
 	err = philo_starved(philos);
 	err = pthread_mutex_lock(&philos->state->game_over_lock);
 	if (!philos->state->game_over)
-		printf("%lu %d %s\n", philos->timestamp, philos->id, whattodo);
+		ft_print(philos, whattodo);
 	err = pthread_mutex_unlock(&philos->state->game_over_lock);
 	philos->timestamp += time_to;
 	wait_until(philos->timestamp, 0);
