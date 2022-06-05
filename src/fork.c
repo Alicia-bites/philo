@@ -12,7 +12,7 @@
 
 #include "../headers/philo.h"
 
-int	tries(t_philo *philos, t_fork *fork)
+int	tries(t_philo *philo, t_fork *fork)
 {
 	int	err;
 	int	fork_is_free;
@@ -25,23 +25,23 @@ int	tries(t_philo *philos, t_fork *fork)
 	if (!fork->fork_id)
 	{
 		// printf("fork_id = %d\n", fork->fork_id);
-		fork->fork_id = philos->id;
+		fork->fork_id = philo->id;
 		fork_is_free = 1;
 	}
 	pthread_mutex_unlock(&fork->fork_is_taken);
 	// printf("fork_id = %d\n", fork->fork_id);
 	err = 0;
 	if (fork_is_free)
-		err = ft_do(philos, 0, TAKE_FORK);
+		err = ft_do(philo, 0, TAKE_FORK);
 	if (err)
 		return (-1);
 	return (fork_is_free);
 }
 
-int	grab_fork(t_philo *philos, t_fork *fork)
+int	grab_fork(t_philo *philo, t_fork *fork)
 {
 	int	is_fork_taken;
-	unsigned long	time_waited;
+	static unsigned long	time_waited;
 	int	end;
 
 	is_fork_taken = 0;
@@ -49,28 +49,31 @@ int	grab_fork(t_philo *philos, t_fork *fork)
 	while (!is_fork_taken)
 	{
 		// printf("end = %d\n", end);
-		end = !philo_starved(philos);
+		end = !philo_starved(philo);
 		if (end)
 			return (0);
-		is_fork_taken = tries(philos, fork);
+		is_fork_taken = tries(philo, fork);
 		// printf("is fork taken %d\n", is_fork_taken);
 		if (is_fork_taken == -1)
 			return (1);
 		if (!is_fork_taken)
-			wait_and_add_waited_time(philos, &time_waited);
+		{
+			// printf("%d is waiting --> %lu\n", philo->id, time_waited);
+			wait_and_add_waited_time(philo, &time_waited);
+		}
 	}
 	return (0);
 }
 
-int	grab_forks(t_philo *philos)
+int	grab_forks(t_philo *philo)
 {
 	int	err;
 	
-	// printf("did philo starved? %d\n", philo_starved(philos));
-	// if (!philo_starved(philos))
+	// printf("did philo starved? %d\n", philo_starved(philo));
+	// if (!philo_starved(philo))
 	// 	return (0);
-	err = grab_fork(philos, philos->right_fork);
-	err = grab_fork(philos, philos->left_fork);
+	err = grab_fork(philo, philo->right_fork);
+	err = grab_fork(philo, philo->left_fork);
 	return (err);
 }
 
@@ -86,11 +89,11 @@ int	drop_fork(t_fork *fork)
 	return (err);
 }
 
-int	drop_forks(t_philo *philos)
+int	drop_forks(t_philo *philo)
 {
 	int	err;
 
-	err = drop_fork(philos->left_fork);
-	err = drop_fork(philos->right_fork);
+	err = drop_fork(philo->left_fork);
+	err = drop_fork(philo->right_fork);
 	return (err);
 }
