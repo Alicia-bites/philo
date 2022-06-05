@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/05 14:56:12 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/05 15:15:44 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int				ft_do(t_philo *philos, unsigned long time_to, char *whattodo);
 int				philo_thinks(t_philo *philos);
 int				philo_sleeps(t_philo *philos);
 int				philo_eats(t_philo *philos);
+int				ft_print(t_philo *philos, char *whattodo);
 
 //fork
 void			add_waited_time(t_philo *philos, unsigned long *time_waited);
