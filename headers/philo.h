@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/06 11:56:05 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/06 12:26:03 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define THREAD_ERROR -7
 # define INT_NEG -8
 # define MUTEX_FAILURE -9
+# define NO_PHILO -10
 
 //a philosopher's day
 # define EAT "is eating"

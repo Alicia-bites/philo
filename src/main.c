@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/06 10:23:30 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/06 12:39:15 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,16 @@
 void init_philo(t_philo *philo, int id, t_game *state)
 {
 	philo->id = id;
-	// printf("id : %d\n", philo->id);
 	philo->last_eat = -1;
-	// printf("last_eat : %ld\n", philo->last_eat);
 	philo->n_meals = 0;
-	// printf("n_meals : %d\n", philo->n_meals);
 	philo->state = state;
-	// printf("philo->state : %d\n", philo->state);
 	philo->right_fork = 0;
 	philo->left_fork = 0;
 	philo->timestamp = 0;
 }
 
-//creating as many t_philo structures as there are philos
+//Create as many t_philo structures as there are philos.
+// If no n_philos = 0 (no philosophers), return.
 int	init_game(t_philo *philos_list, t_game *state)
 {
 	int	id;
@@ -37,11 +34,11 @@ int	init_game(t_philo *philos_list, t_game *state)
 
 	id = 0;
 	err = 0;
-	// printf("%d\n", state->set.n_philos);
+	if (state->set.n_philos == 0)
+		return (NO_PHILO);
 	while (id < state->set.n_philos)
 	{
 		init_philo(&philos_list[id], id + 1, state);
-		// printf("%d\n", philos[id].id);
 		id++;
 	}
 	if (deal_forks(philos_list, &state->set))
@@ -72,5 +69,10 @@ int	main(int argc, char **argv)
 	if (err != 0)
 		return (ft_clean(philos_list, state, err));
 	err = init_game(philos_list, state);
+	if (err)
+	{
+		ft_panic(err);
+		return (ft_clean(philos_list, state, err));		
+	}
 	return (ft_clean_with_forks(philos_list, state, err));
 }

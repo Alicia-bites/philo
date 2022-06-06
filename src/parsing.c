@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:05:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/06 11:05:23 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/06 12:38:21 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_panic(int errcode)
 {
-	printf("Error !\n");
+	if (errcode != NO_PHILO)
+		printf("Error !\n");
 	if (errcode == WRONG_NARG)
 		printf("Usage :./philo number_of_philosophers time_to_die " \
 		"time_to_eat " \
@@ -33,6 +34,8 @@ int	ft_panic(int errcode)
 		printf("Failed to init or lock mutex.\n");
 	else if (errcode == INT_NEG)
 		printf("Argument can't be negative.\n");
+	else if (errcode == NO_PHILO)
+		printf("Number if philosophers is 0. No diner tonight.\n");
 	return (errcode);
 }
 
@@ -65,11 +68,6 @@ char **check_args(int argc, char **argv, int *err)
 			if (ft_invalid_int(ft_atoll(argv[i])))
 				*err = ft_panic(OUT_INT);
 		}
-		// else 
-		// {
-		// 	*err = ft_panic(NOT_INT);
-		// 	printf("err = %d\n", *err);			
-		// }
 		i++;
 	}
 	return (argv);
@@ -84,17 +82,12 @@ int ft_parse(int argc, char **argv, t_game *state)
 	if (err != 0)
 		return (err);
     state->set.n_philos = ft_atoi(argv[1]);
-    // printf("n_philos : %d\n", state->set.n_philos);
     state->set.time_to_die = ft_atoi(argv[2]);
-    // printf("time_to_die : %d\n", state->set.time_to_die);
     state->set.time_to_eat = ft_atoi(argv[3]);
-    // printf("time_to_eat : %d\n", state->set.time_to_eat);
     state->set.time_to_sleep = ft_atoi(argv[4]);
-    // printf("time_to_sleep : %d\n", state->set.time_to_sleep);
     if (argc == 6)
     {
         state->set.n_meals = ft_atoi(argv[5]);
-        // printf("n_meals : %d\n", state->set.n_meals);        
     }
     else
 	{
