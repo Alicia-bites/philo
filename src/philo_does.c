@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/05 18:59:47 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:21:10 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int ft_do(t_philo *philo, unsigned long time_to, char *whattodo)
 	err = pthread_mutex_unlock(&philo->state->game_over_lock);
 	philo->timestamp += time_to;
 	wait_until(philo->timestamp, 0);
+	// puts("hey");
 	// printf(" philo ID : %d | timestamp %ld\n", philo->id, philo->timestamp);
 	return (err);
 }

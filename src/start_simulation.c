@@ -6,12 +6,13 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:37:07 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/05 19:00:55 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/06 12:05:24 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
+//start game simulation. 
 void	*game(void *param)
 {
 	t_philo *philo;
@@ -27,19 +28,21 @@ void	*game(void *param)
 	return (0);
 }
 
+
+//1.create one thread per philo, passing in second argument the function that
+//	will define what the thread/philo will be doing.
+//2.make the program wait until each thread/philo is finished doing what it has
+//	to do and once they are all back continue and end the program.
 int	start_simulation(t_philo *philos_list, t_game *state)
 {
 	int	i;
 	int err;
 
 	i = 0;
-	// printf("%lu\n", philos->starting_time);
-	// printf("n philo = %d\n", state->set.n_philos);
 	get_starting_time(philos_list);
 	while (i < state->set.n_philos)
 	{
 		err = pthread_create(&philos_list[i].thread, 0, &game, &philos_list[i]);
-		// printf("err = %d\n", err);
 		if (err != 0)
 			return (ft_panic(THREAD_ERROR));
 		i++;

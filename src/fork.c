@@ -40,26 +40,22 @@ int	tries(t_philo *philo, t_fork *fork)
 
 int	grab_fork(t_philo *philo, t_fork *fork)
 {
-	int	is_fork_taken;
-	static unsigned long	time_waited;
-	int	end;
+	int				is_fork_taken;
+	double			time_waited;
 
 	is_fork_taken = 0;
 	time_waited = 0;
 	while (!is_fork_taken)
 	{
-		// printf("end = %d\n", end);
-		end = !philo_starved(philo);
-		if (end)
+		if (!philo_starved(philo))
 			return (0);
 		is_fork_taken = tries(philo, fork);
-		// printf("is fork taken %d\n", is_fork_taken);
 		if (is_fork_taken == -1)
 			return (1);
 		if (!is_fork_taken)
 		{
-			// printf("%d is waiting --> %lu\n", philo->id, time_waited);
 			wait_and_add_waited_time(philo, &time_waited);
+			// printf("%d is waiting --> %f\n", philo->id, time_waited);
 		}
 	}
 	return (0);
