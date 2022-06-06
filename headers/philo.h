@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/05 19:29:07 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:07:40 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define MALLOC_FAILURE -6
 # define THREAD_ERROR -7
 # define INT_NEG -8
-# define MUTEX_FAIL -9
+# define MUTEX_FAILURE -9
 
 //a philosopher's day
 # define EAT "is eating"
@@ -114,9 +114,9 @@ void			wait_if_even_nb_of_philo(t_philo *philos);
 void			organize_queue_to_eat(t_philo *philos);
 
 //create fork
-int				init_forks(t_philo *philos, t_settings set);
+int				deal_forks(t_philo *philos, t_settings *set);
 int				give_fork_to_philos(t_philo *left_philo, t_philo *right_philo);
-t_fork			*create_fork(void);
+t_fork			*new_fork(int * has_failed);
 
 //philo_does
 int				ft_do(t_philo *philos, unsigned long time_to, char *whattodo);

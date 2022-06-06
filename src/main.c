@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/05 19:01:56 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/06 10:23:30 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	init_game(t_philo *philos_list, t_game *state)
 		// printf("%d\n", philos[id].id);
 		id++;
 	}
-	if (init_forks(philos_list, state->set) == MUTEX_FAIL)
-		return (MUTEX_FAIL);
+	if (deal_forks(philos_list, &state->set))
+		return (err);
 	err = init_printf_lock(philos_list);
 	err = init_end_game(state);
 	err = start_simulation(philos_list, state);

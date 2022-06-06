@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:05:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/03 15:01:24 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:05:23 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	ft_panic(int errcode)
 		printf("Found empty string\n");
 	else if (errcode == MALLOC_FAILURE)
 		printf("Memory allocation failed.\n");
+	else if (errcode == MUTEX_FAILURE)
+		printf("Failed to init or lock mutex.\n");
 	else if (errcode == INT_NEG)
 		printf("Argument can't be negative.\n");
 	return (errcode);

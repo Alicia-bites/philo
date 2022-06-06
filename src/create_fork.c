@@ -12,18 +12,18 @@
 
 #include "../headers/philo.h"
 
-t_fork	*create_fork(void)
+
+//creates a new fork
+t_fork	*new_fork(int *has_failed)
 {	
 	t_fork			*fork;
-	int				err;
 
 	fork = malloc(sizeof(t_fork));
 	if (!fork)
 		return (0);
-	// printf("%p\n", fork);
 	fork->fork_id = 0;
-	err = pthread_mutex_init(&fork->fork_is_taken, 0);
-	if (err)
+	*has_failed = pthread_mutex_init(&fork->fork_is_taken, 0);
+	if (*has_failed)
 	{
 		free(fork);
 		return (0);
@@ -31,39 +31,49 @@ t_fork	*create_fork(void)
 	return (fork);
 }
 
+//give one fork for 2 philososphers. One fork is "between" 2 philo.
 int	give_fork_to_philos(t_philo *left_philo, t_philo *right_philo)
 {
-	left_philo->left_fork = create_fork();
+	int	has_failed;
+
+	has_failed = 0;
+	left_philo->left_fork = new_fork(&has_failed);
+	if (has_failed)
+		return (MUTEX_FAILURE);
 	if (!left_philo->left_fork)
-		return (0);
-	// printf("left philo, left fork ID : %d\n", left_philo->left_fork->fork_id);
-	// if (left_philo->left_fork->fork_id == -1)
-	// 	return(ft_panic(MUTEX_FAIL));
+		return (MALLOC_FAILURE);
 	right_philo->right_fork = left_philo->left_fork;
-	// right_philo->right_fork->fork_id = left_philo->left_fork->fork_id;
-	// printf("right philo, right fork ID : %d\n", right_philo.right_fork->fork_id);
 	return (0);
 }
 
-int	init_forks(t_philo *philos, t_settings set)
+
+//if there are more than one philo, deal forks to philosophers
+//if there is just one philo, is takes a fork and then die at time_to_die ms
+int	deal_forks(t_philo *philos, t_settings *set)
 {
 	int		i;
+	int		err;
 	t_philo	*left_philo;
 
 	i = 0;
-	while (i < set.n_philos)
+	err = 0;
+	left_philo = 0;
+	while (i < set->n_philos && set->n_philos > 1)
 	{
-		if (i == 0 && set.n_philos > 1)
-			left_philo = &philos[set.n_philos -1];
-		else if (set.n_philos > 1)
+		if (i == 0)
+			left_philo = &philos[set->n_philos - 1];
+		else
 			left_philo = &philos[i - 1];
-		// printf("left_philo = %d\n", left_philo.id);
-		// printf("right_philo = %d\n", philos[i].id);
-		// puts("---------------------------------------------------------------");
-		if (give_fork_to_philos(left_philo, &philos[i]) == MUTEX_FAIL)
-			return (MUTEX_FAIL);
+		err = give_fork_to_philos(left_philo, &philos[i]);
+		if (err)
+			return (ft_panic(err));
 		i++;
-		// printf("%d | %p\n", i, philos[i].right_fork);
+	}
+	if (set->n_philos == 1)
+	{
+		printf("%d %d has taken a fork\n", 0, 1);
+		printf("%d %d died\n", philos->state->set.time_to_die, 1);
+		return (1);
 	}
 	return (0);
 }
