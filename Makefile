@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/06/07 14:00:41 by amarchan         ###   ########.fr        #
+#    Updated: 2022/06/07 15:25:53 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NM_BIN = nm
 
 SRCS =	src/main.c \
 		src/parsing.c \
-		src/start_simulation.c \
+		src/start_diner.c \
 		src/create_fork.c \
 		src/philo_does.c \
 		src/time.c \

@@ -6,41 +6,41 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:31:28 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 14:43:44 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:56:40 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//philos->n_meals -- actual number of meals eaten by the philo
-//philos->diner->set.n_meals -- number of meals set bu user.
-int	game_is_over(t_philo *philos)
+//philo->n_meals -- actual number of meals eaten by the philo
+//philo->diner->set.n_meals -- number of meals set bu user.
+int	game_is_over(t_philo *philo)
 {
 	int	game_over;
 
-	if (philos->diner->set.n_meals != -1 && philos->n_meals
-		>= philos->diner->set.n_meals)
+	if (philo->diner->set.n_meals != -1 && philo->n_meals
+		>= philo->diner->set.n_meals)
 		return (1);
-	pthread_mutex_lock(&philos->diner->game_over_lock);
-	game_over = philos->diner->game_over;
-	pthread_mutex_unlock(&philos->diner->game_over_lock);
+	pthread_mutex_lock(&philo->diner->game_over_lock);
+	game_over = philo->diner->game_over;
+	pthread_mutex_unlock(&philo->diner->game_over_lock);
 	return (game_over);
 }
 
-//if last time philo has eaten + time_to_die is superior to philos->timestamp, 
+//if last time philo has eaten + time_to_die is superior to philo->timestamp, 
 //--> kill philo
-int	philo_starved(t_philo *philos)
+int	philo_starved(t_philo *philo)
 {
 	int	err;
 
 	err = 0;
-	if ((philos->last_eat + philos->diner->set.time_to_die) < philos->timestamp)
+	if ((philo->last_eat + philo->diner->set.time_to_die) < philo->timestamp)
 	{
-		err = pthread_mutex_lock(&philos->diner->game_over_lock);
-		if (!philos->diner->game_over)
-			ft_print(philos, DIE);
-		philos->diner->game_over = 1;
-		err = pthread_mutex_unlock(&philos->diner->game_over_lock);
+		err = pthread_mutex_lock(&philo->diner->game_over_lock);
+		if (!philo->diner->game_over)
+			printf("%lu %d %s\n", philo->timestamp, philo->id, DIE);
+		philo->diner->game_over = 1;
+		err = pthread_mutex_unlock(&philo->diner->game_over_lock);
 		return (err);
 	}
 	return (1);

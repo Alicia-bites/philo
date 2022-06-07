@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 14:43:44 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 16:18:48 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	organize_queue_to_eat(t_philo *philo)
 	}
 	else
 		next_meal = philo->last_eat + 3 * philo->diner->set.time_to_eat;
-	wait_until(next_meal, 0);
+	wait_until(philo, next_meal, 0);
 	philo->timestamp = next_meal;
 }
 
@@ -47,8 +47,8 @@ void	wait_if_even_nb_of_philo(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
-		philo->timestamp += philo->diner->set.time_to_eat / 2;
-		wait_until(philo->timestamp, 0);
+		philo->timestamp += philo->diner->set.time_to_eat;
+		wait_until(philo, philo->timestamp, 0);
 	}
 }
 
@@ -58,7 +58,7 @@ void	wait_and_add_waited_time(t_philo *philo, double *time_waited)
 	unsigned long	new_try;
 
 	new_try = philo->timestamp + 0.2;
-	wait_until(new_try, 0);
+	wait_until(philo, new_try, 0);
 	*time_waited = *time_waited + 0.2;
 	if (*time_waited > 1)
 	{

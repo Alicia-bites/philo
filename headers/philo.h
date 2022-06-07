@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 14:43:44 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 16:13:36 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,16 @@ char			**check_args(int argc, char **argv, int *err);
 int				ft_parse(int argc, char **argv, t_game *diner);
 int				ft_panic(int errcode);
 
-//start_simulation
-int				start_simulation(t_philo *philos, t_game *diner);
+//start_diner
+int				start_diner(t_philo *philos, t_game *diner);
 void			*game(void *param);
 unsigned long	get_time(t_philo *philos);
 int				game_is_over(t_philo *philos);
 
 //time
 unsigned long	elapsed_time_since_start(t_philo *philos);
-void			get_starting_time(void);
-void			wait_until(unsigned long moment_ms, struct timeval *time_ref);
+void			get_starting_time(t_philo *philo);
+void			wait_until(t_philo *philo, unsigned long moment_ms, struct timeval *time_ref);
 
 //time_utils
 unsigned long	time_sub(struct timeval a, struct timeval b);

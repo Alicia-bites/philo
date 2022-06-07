@@ -6,40 +6,44 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:16:02 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 14:43:44 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:57:44 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_forks(t_philo *philos)
+void	free_forks(t_philo *philos_list)
 {
 	int	i;
 
 	i = 0;
-	while (i < philos[0].diner->set.n_philos)
+	while (i < philos_list[0].diner->set.n_philos)
 	{
-		free(philos[i].left_fork);
+		free(philos_list[i].left_fork);
 		i++;
 	}
 }
 
-int	ft_clean(t_philo *philos, t_game *diner, int err)
+int	ft_clean(t_philo *philos_list, t_game *diner, int err)
 {
+	printf("%d\n", err);
+	ft_panic(err);		
 	if (diner)
 		free(diner);
-	if (philos)
-		free(philos);
+	if (philos_list)
+		free(philos_list);
 	return (err);
 }
 
-int	ft_clean_with_forks(t_philo *philos, t_game *diner, int err)
+int	ft_clean_with_forks(t_philo *philos_list, t_game *diner, int err)
 {
-	if (philos->right_fork && philos->left_fork)
-		free_forks(philos);
+	if (err)
+		ft_panic(err);
+	if (philos_list->right_fork && philos_list->left_fork)
+		free_forks(philos_list);
 	if (diner)
 		free(diner);
-	if (philos)
-		free(philos);
+	if (philos_list)
+		free(philos_list);
 	return (err);
 }

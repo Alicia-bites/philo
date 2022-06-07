@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start_simulation.c                                 :+:      :+:    :+:   */
+/*   start_diner.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -33,13 +33,13 @@ void	*game(void *param)
 //	will define what the thread/philo will be doing.
 //2.make the program wait until each thread/philo is finished doing what it has
 //	to do and once they are all back continue and end the program.
-int	start_simulation(t_philo *philos_list, t_game *diner)
+int	start_diner(t_philo *philos_list, t_game *diner)
 {
 	int	i;
 	int	err;
 
 	i = 0;
-	get_starting_time();
+	get_starting_time(philos_list);
 	while (i < diner->set.n_philos)
 	{
 		err = pthread_create(&philos_list[i].thread, 0, &game, &philos_list[i]);

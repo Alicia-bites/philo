@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 14:46:54 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 15:25:53 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_game(t_philo *philos_list, t_game *diner)
 	if (deal_forks(philos_list, &diner->set))
 		return (err);
 	err = init_end_game(diner);
-	err = start_simulation(philos_list, diner);
+	err = start_diner(philos_list, diner);
 	return (err);
 }
 
@@ -61,19 +61,16 @@ int	main(int argc, char **argv)
 		return (ft_panic(WRONG_NARG));
 	diner = malloc(sizeof(t_game));
 	if (!diner)
-		return (1);
+		return (ft_panic(MALLOC_FAILURE));
 	philos_list = malloc(sizeof(t_philo) * (ft_atoi(argv[1])));
 	if (!philos_list)
-		ft_panic(MALLOC_FAILURE);
+		return (ft_clean(philos_list, diner, MALLOC_FAILURE));
 	if (argc == 5 || argc == 6)
 		err = ft_parse(argc, argv, diner);
 	if (err != 0)
 		return (ft_clean(philos_list, diner, err));
 	err = init_game(philos_list, diner);
 	if (err)
-	{
-		ft_panic(err);
 		return (ft_clean(philos_list, diner, err));
-	}
 	return (ft_clean_with_forks(philos_list, diner, err));
 }
