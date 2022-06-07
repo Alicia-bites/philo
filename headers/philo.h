@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 13:45:06 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:43:44 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,20 @@ typedef struct s_philo
 	unsigned long		timestamp;
 	pthread_t			thread;
 	pthread_mutex_t		printf_mutex;
-	t_game				*state;
+	t_game				*diner;
 }	t_philo;
 
 // main
-int				init_game(t_philo *philos, t_game *state);
-void			init_philo(t_philo *philo, int id, t_game *state);
+int				init_game(t_philo *philos, t_game *diner);
+void			init_philo(t_philo *philo, int id, t_game *diner);
 
 //parsing
 char			**check_args(int argc, char **argv, int *err);
-int				ft_parse(int argc, char **argv, t_game *state);
+int				ft_parse(int argc, char **argv, t_game *diner);
 int				ft_panic(int errcode);
 
-//lock_printf
-int				init_printf_lock(t_philo *philos);
-
 //start_simulation
-int				start_simulation(t_philo *philos, t_game *state);
+int				start_simulation(t_philo *philos, t_game *diner);
 void			*game(void *param);
 unsigned long	get_time(t_philo *philos);
 int				game_is_over(t_philo *philos);
@@ -105,8 +102,8 @@ void			get_starting_time(void);
 void			wait_until(unsigned long moment_ms, struct timeval *time_ref);
 
 //time_utils
-unsigned long	time_diff(struct timeval a, struct timeval b);
-int				is_greater_than(unsigned long a, unsigned long b);
+unsigned long	time_sub(struct timeval a, struct timeval b);
+int				greater_than(unsigned long a, unsigned long b);
 struct timeval	ft_convert(unsigned long moment_ms);
 
 //wait
@@ -148,13 +145,13 @@ int				isinteger(char *s);
 void			ft_bzero(void *s, unsigned int n);
 
 //end_game
-int				init_end_game(t_game *state);
+int				init_end_game(t_game *diner);
 int				philo_starved(t_philo *philos);
 int				game_is_over(t_philo *philos);
 
 //clean
-int				ft_clean(t_philo *philos, t_game *state, int err);
-int				ft_clean_with_forks(t_philo *philos, t_game *state, int err);
+int				ft_clean(t_philo *philos, t_game *diner, int err);
+int				ft_clean_with_forks(t_philo *philos, t_game *diner, int err);
 void			free_forks(t_philo *philos);
 
 #endif 

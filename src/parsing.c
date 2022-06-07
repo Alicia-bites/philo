@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:05:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 13:35:43 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:43:44 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**check_args(int argc, char **argv, int *err)
 	return (argv);
 }
 
-int	ft_parse(int argc, char **argv, t_game *state)
+int	ft_parse(int argc, char **argv, t_game *diner)
 {
 	int	err;
 
@@ -81,13 +81,13 @@ int	ft_parse(int argc, char **argv, t_game *state)
 	argv = check_args(argc, argv, &err);
 	if (err != 0)
 		return (err);
-	state->set.n_philos = ft_atoi(argv[1]);
-	state->set.time_to_die = ft_atoi(argv[2]);
-	state->set.time_to_eat = ft_atoi(argv[3]);
-	state->set.time_to_sleep = ft_atoi(argv[4]);
+	diner->set.n_philos = ft_atoi(argv[1]);
+	diner->set.time_to_die = ft_atoi(argv[2]);
+	diner->set.time_to_eat = ft_atoi(argv[3]);
+	diner->set.time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		state->set.n_meals = ft_atoi(argv[5]);
+		diner->set.n_meals = ft_atoi(argv[5]);
 	else
-		state->set.n_meals = -1;
+		diner->set.n_meals = -1;
 	return (0);
 }

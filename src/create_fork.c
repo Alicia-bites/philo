@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:26:24 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 13:26:41 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:43:44 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	deal_forks(t_philo *philos, t_settings *set)
 	if (set->n_philos == 1)
 	{
 		printf("%d %d has taken a fork\n", 0, 1);
-		printf("%d %d died\n", philos->state->set.time_to_die, 1);
+		printf("%d %d died\n", philos->diner->set.time_to_die, 1);
 		return (1);
 	}
 	return (0);

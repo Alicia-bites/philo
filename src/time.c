@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:00:53 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 13:39:48 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:43:55 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	wait_until(unsigned long moment_ms, struct timeval *time_ref)
 	gettimeofday(&now, 0);
 	static_time_ref_long = static_time_ref.tv_sec
 		* 1000 + static_time_ref.tv_usec / 1000;
-	while (!is_greater_than(time_diff(now, moment), static_time_ref_long))
+	while (!greater_than(time_sub(now, moment), static_time_ref_long))
 	{
 		usleep(10);
 		gettimeofday(&now, 0);

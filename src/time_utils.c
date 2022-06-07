@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:09:08 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 13:38:53 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 14:44:54 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ struct timeval	ft_convert(unsigned long moment_ms)
 	return (moment_converted);
 }
 
-int	is_greater_than(unsigned long a, unsigned long b)
+int	greater_than(unsigned long a, unsigned long b)
 {
 	if (a > b)
 		return (1);
 	return (0);
 }
 
-unsigned long	time_diff(struct timeval a, struct timeval b)
+unsigned long	time_sub(struct timeval a, struct timeval b)
 {
 	unsigned long	a_long;
 	unsigned long	b_long;

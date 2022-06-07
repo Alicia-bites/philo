@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/06/07 13:35:54 by amarchan         ###   ########.fr        #
+#    Updated: 2022/06/07 14:00:41 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRCS =	src/main.c \
 		src/time_utils.c \
 		src/wait.c \
 		src/fork.c \
-		src/lock_printf.c \
 		src/end_game.c \
 		src/clean.c \
 		utils/ft_atoi.c \
@@ -43,9 +42,9 @@ SRCS =	src/main.c \
 
 OBJS := ${SRCS:.c=.o}
 
-CC = clang
+CC = cc
 
-CFLAGS = -pthread -Wall -Wextra -Werror -fPIE -g3
+CFLAGS = -pthread -Wall -Wextra -Werror
 
 AR = ar rcs
 
@@ -64,11 +63,13 @@ $(NAME): ${OBJS}
 clean:
 	${RM} ${OBJS}
 
-fclean: clean
-	${RM} ${NAME}
-	
-
-re: fclean all
+fclean:
+	make clean
+	$(RM) $(NAME)
+  
+re:
+	make fclean
+	make all
 
 norme:
 	${NORMINETTE_BIN} ${SRCS}
