@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/06 12:09:40 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 10:59:12 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	organize_queue_to_eat(t_philo *philo)
 		else
 			next_meal = philo->state->set.time_to_eat * 2;
 	}
-	// else
-	// 	next_meal = philo->last_eat + 3 * philo->state->set.time_to_eat;
+	else
+		next_meal = philo->last_eat + 3 * philo->state->set.time_to_eat;
 	wait_until(next_meal, 0);
 	philo->timestamp = next_meal;
 }
