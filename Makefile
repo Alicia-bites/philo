@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/06/03 14:21:10 by amarchan         ###   ########.fr        #
+#    Updated: 2022/06/07 13:35:54 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRCS =	src/main.c \
 		src/start_simulation.c \
 		src/create_fork.c \
 		src/philo_does.c \
-		src/is_fork_free.c \
 		src/time.c \
 		src/time_utils.c \
 		src/wait.c \

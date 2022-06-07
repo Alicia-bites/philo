@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/06 12:39:15 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:33:01 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //initialize id, when last_meal was, number of meals eaten and pointer to
 //state for each philosopher.
-void init_philo(t_philo *philo, int id, t_game *state)
+void	init_philo(t_philo *philo, int id, t_game *state)
 {
 	philo->id = id;
 	philo->last_eat = -1;
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	t_philo				*philos_list;
 	t_game				*state;
 	int					err;
-	
+
 	err = 0;
 	if (argc != 5 && argc != 6)
 		return (ft_panic(WRONG_NARG));
@@ -72,7 +72,7 @@ int	main(int argc, char **argv)
 	if (err)
 	{
 		ft_panic(err);
-		return (ft_clean(philos_list, state, err));		
+		return (ft_clean(philos_list, state, err));
 	}
 	return (ft_clean_with_forks(philos_list, state, err));
 }

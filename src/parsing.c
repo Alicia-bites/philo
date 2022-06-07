@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:05:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/06 12:38:21 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:35:43 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ static int	ft_invalid_int(long long arg)
 }
 
 //check if arguments are correct and if so returns 1
-char **check_args(int argc, char **argv, int *err)
+char	**check_args(int argc, char **argv, int *err)
 {
 	int	i;
-	
+
 	i = 1;
 	while (i < argc)
 	{
 		if (!isinteger(argv[i]))
 		{
 			*err = ft_panic(NOT_INT);
-			return (argv);			
+			return (argv);
 		}
 		if (ft_atoll(argv[i]) < 0)
 			*err = ft_panic(INT_NEG);
@@ -73,25 +73,21 @@ char **check_args(int argc, char **argv, int *err)
 	return (argv);
 }
 
-int ft_parse(int argc, char **argv, t_game *state)
-{   
+int	ft_parse(int argc, char **argv, t_game *state)
+{
 	int	err;
-	
+
 	err = 0;
-    argv = check_args(argc, argv, &err);
+	argv = check_args(argc, argv, &err);
 	if (err != 0)
 		return (err);
-    state->set.n_philos = ft_atoi(argv[1]);
-    state->set.time_to_die = ft_atoi(argv[2]);
-    state->set.time_to_eat = ft_atoi(argv[3]);
-    state->set.time_to_sleep = ft_atoi(argv[4]);
-    if (argc == 6)
-    {
-        state->set.n_meals = ft_atoi(argv[5]);
-    }
-    else
-	{
-        state->set.n_meals = -1;		
-	}
+	state->set.n_philos = ft_atoi(argv[1]);
+	state->set.time_to_die = ft_atoi(argv[2]);
+	state->set.time_to_eat = ft_atoi(argv[3]);
+	state->set.time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		state->set.n_meals = ft_atoi(argv[5]);
+	else
+		state->set.n_meals = -1;
 	return (0);
 }

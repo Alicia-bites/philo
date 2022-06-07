@@ -6,11 +6,11 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 18:54:31 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/05 14:24:00 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:32:15 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
 int	init_printf_lock(t_philo *philos)
 {

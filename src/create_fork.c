@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_fork->c                                      :+:      :+:    :+:   */
+/*   create_fork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 11:01:45 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/02 14:41:00 by amarchan         ###   ########.fr       */
+/*   Created: 2022/06/07 13:26:24 by amarchan          #+#    #+#             */
+/*   Updated: 2022/06/07 13:26:41 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
-
 
 //creates a new fork
 t_fork	*new_fork(int *has_failed)
@@ -45,7 +44,6 @@ int	give_fork_to_philos(t_philo *left_philo, t_philo *right_philo)
 	right_philo->right_fork = left_philo->left_fork;
 	return (0);
 }
-
 
 //if there are more than one philo, deal forks to philosophers
 //if there is just one philo, is takes a fork and then die at time_to_die ms

@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:37:07 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/06 12:05:24 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:47:48 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 //start game simulation. 
 void	*game(void *param)
 {
-	t_philo *philo;
+	t_philo	*philo;
+
 	philo = (t_philo *)param;
 	wait_if_even_nb_of_philo(philo);
 	while (!game_is_over(philo))
@@ -28,7 +29,6 @@ void	*game(void *param)
 	return (0);
 }
 
-
 //1.create one thread per philo, passing in second argument the function that
 //	will define what the thread/philo will be doing.
 //2.make the program wait until each thread/philo is finished doing what it has
@@ -36,10 +36,10 @@ void	*game(void *param)
 int	start_simulation(t_philo *philos_list, t_game *state)
 {
 	int	i;
-	int err;
+	int	err;
 
 	i = 0;
-	get_starting_time(philos_list);
+	get_starting_time();
 	while (i < state->set.n_philos)
 	{
 		err = pthread_create(&philos_list[i].thread, 0, &game, &philos_list[i]);

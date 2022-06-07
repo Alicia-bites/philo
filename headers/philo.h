@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/06 12:26:03 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/07 13:45:06 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_game
 	t_settings		set;
 }	t_game;
 
-typedef struct	t_fork
+typedef struct t_fork
 {
 	int				fork_id;
 	pthread_mutex_t	fork_is_taken;
@@ -83,10 +83,10 @@ typedef struct s_philo
 
 // main
 int				init_game(t_philo *philos, t_game *state);
-void 			init_philo(t_philo *philo, int id, t_game *state);
+void			init_philo(t_philo *philo, int id, t_game *state);
 
 //parsing
-char 			**check_args(int argc, char **argv, int *err);
+char			**check_args(int argc, char **argv, int *err);
 int				ft_parse(int argc, char **argv, t_game *state);
 int				ft_panic(int errcode);
 
@@ -101,7 +101,7 @@ int				game_is_over(t_philo *philos);
 
 //time
 unsigned long	elapsed_time_since_start(t_philo *philos);
-void			get_starting_time();
+void			get_starting_time(void);
 void			wait_until(unsigned long moment_ms, struct timeval *time_ref);
 
 //time_utils
@@ -110,14 +110,14 @@ int				is_greater_than(unsigned long a, unsigned long b);
 struct timeval	ft_convert(unsigned long moment_ms);
 
 //wait
-void			wait_and_add_waited_time(t_philo *philos,  double *time_waited);
+void			wait_and_add_waited_time(t_philo *philos, double *time_waited);
 void			wait_if_even_nb_of_philo(t_philo *philos);
 void			organize_queue_to_eat(t_philo *philos);
 
 //create fork
 int				deal_forks(t_philo *philos, t_settings *set);
 int				give_fork_to_philos(t_philo *left_philo, t_philo *right_philo);
-t_fork			*new_fork(int * has_failed);
+t_fork			*new_fork(int *has_failed);
 
 //philo_does
 int				ft_do(t_philo *philos, unsigned long time_to, char *whattodo);
@@ -127,16 +127,11 @@ int				philo_eats(t_philo *philos);
 int				ft_print(t_philo *philos, char *whattodo);
 
 //fork
-void			add_waited_time(t_philo *philos, unsigned long *time_waited);
 int				tries(t_philo *philos, t_fork *fork);
-int 			grab_fork(t_philo *philos, t_fork *fork);
+int				grab_fork(t_philo *philos, t_fork *fork);
 int				grab_forks(t_philo *philos);
 int				drop_fork(t_fork *fork);
 int				drop_forks(t_philo *philos);
-
-//is_fork_free
-int				philo_grabs_fork(t_philo *philos);
-int				wait(t_philo *philos);
 
 //utils
 int				ft_atoi(const char *str);
@@ -154,13 +149,12 @@ void			ft_bzero(void *s, unsigned int n);
 
 //end_game
 int				init_end_game(t_game *state);
-int 			philo_starved(t_philo *philos);
+int				philo_starved(t_philo *philos);
 int				game_is_over(t_philo *philos);
 
 //clean
-int 			ft_clean(t_philo *philos, t_game *state, int err);
-int 			ft_clean_with_forks(t_philo *philos, t_game *state, int err);
+int				ft_clean(t_philo *philos, t_game *state, int err);
+int				ft_clean_with_forks(t_philo *philos, t_game *state, int err);
 void			free_forks(t_philo *philos);
 
-//main
 #endif 
