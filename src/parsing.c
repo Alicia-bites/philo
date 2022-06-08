@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:05:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 11:54:51 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:13:25 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	**check_args(int argc, char **argv, int *err)
 			if (ft_invalid_int(ft_atoll(argv[i])))
 				*err = OUT_INT;
 		}
-		else 
+		else
 			*err = NOT_INT;
 		i++;
 	}
