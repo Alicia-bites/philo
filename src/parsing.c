@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:05:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 14:43:44 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:06:47 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_panic(int errcode)
 	else if (errcode == INT_NEG)
 		printf("Argument can't be negative.\n");
 	else if (errcode == NO_PHILO)
-		printf("Number if philosophers is 0. No diner tonight.\n");
+		printf("Number of philosophers is 0. No diner tonight.\n");
 	return (errcode);
 }
 

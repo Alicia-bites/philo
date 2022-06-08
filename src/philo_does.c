@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 16:16:53 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:54:49 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_do(t_philo *philo, unsigned long time_to, char *whattodo)
 		printf("%lu %d %s\n", philo->timestamp, philo->id, whattodo);
 	err = pthread_mutex_unlock(&philo->diner->game_over_lock);
 	philo->timestamp += time_to;
-	wait_until(philo, philo->timestamp, 0);
+	wait_until(philo->timestamp, 0);
 	return (err);
 }
 
@@ -34,7 +34,7 @@ int	philo_eats(t_philo *philo)
 	err = grab_forks(philo);
 	philo->last_eat = philo->timestamp;
 	err = ft_do(philo, philo->diner->set.time_to_eat, EAT);
-	wait_until(philo, philo->diner->set.time_to_eat, 0);
+	wait_until(philo->diner->set.time_to_eat, 0);
 	err = drop_forks(philo);
 	philo->n_meals++;
 	return (err);

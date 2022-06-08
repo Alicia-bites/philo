@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:00:53 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 16:20:54 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:57:32 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	get_starting_time(t_philo *philo)
 {
 	struct timeval	start;
 
+	(void)*philo;
 	gettimeofday(&start, 0);
-	wait_until(philo, 0, &start);
+	wait_until(0, &start);
 }
 
 //evaluate elapsed time since program started
@@ -33,13 +34,13 @@ unsigned long	elapsed_time_since_start(t_philo *philos)
 }
 
 //make philo wait until moment_ms
-void	wait_until(t_philo *philo, unsigned long moment_ms, struct timeval *time_ref)
+void	wait_until(unsigned long moment_ms, struct timeval *time_ref)
 {
 	static struct timeval	static_time_ref;
 	struct timeval			moment;
 	struct timeval			now;
 	unsigned long			static_time_ref_long;
-	(void)*philo;
+
 	moment = ft_convert(moment_ms);
 	if (time_ref)
 		static_time_ref = *time_ref;
@@ -48,8 +49,6 @@ void	wait_until(t_philo *philo, unsigned long moment_ms, struct timeval *time_re
 		* 1000 + static_time_ref.tv_usec / 1000;
 	while (!greater_than(time_sub(now, moment), static_time_ref_long))
 	{
-		// if (philo_starved(philo))
-		// 	return ;
 		usleep(10);
 		gettimeofday(&now, 0);
 	}

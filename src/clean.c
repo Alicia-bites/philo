@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:16:02 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 14:57:44 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 10:52:31 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	free_forks(t_philo *philos_list)
 
 int	ft_clean(t_philo *philos_list, t_game *diner, int err)
 {
-	printf("%d\n", err);
-	ft_panic(err);		
+	ft_panic(err);
 	if (diner)
 		free(diner);
 	if (philos_list)
