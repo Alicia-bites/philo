@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:05:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 12:13:25 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:27:11 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	ft_panic(int errcode)
 {
-	if (errcode != NO_PHILO)
-		printf("Error !\n");
+	if (errcode == NO_PHILO || errcode == NO_MEALS)
+		return (errcode);
+	printf("Error !\n");
 	if (errcode == WRONG_NARG)
 		printf("Usage :./philo number_of_philosophers time_to_die " \
 		"time_to_eat " \
@@ -34,8 +35,6 @@ int	ft_panic(int errcode)
 		printf("Failed to init or lock mutex.\n");
 	else if (errcode == INT_NEG)
 		printf("Argument can't be negative.\n");
-	else if (errcode == NO_PHILO)
-		printf("Number of philosophers is 0. No diner tonight.\n");
 	return (errcode);
 }
 

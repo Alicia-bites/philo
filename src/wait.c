@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 11:07:46 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:45:24 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,21 @@ static int	queue_uneven_n_philos(t_philo *philo, unsigned long *next_meal)
 	return (no_time_to_wait);
 }
 
+int	queue_if_not_first_meal(t_philo *philo, unsigned long *next_meal)
+{
+	int	no_time_to_wait;
+
+	no_time_to_wait = 0;
+	*next_meal = philo->last_eat + 3 * philo->diner->set.time_to_eat;
+	if ((int)(*next_meal) > philo->diner->set.time_to_die)
+	{
+		wait_until(philo->diner->set.time_to_die - 1000, 0);
+		no_time_to_wait = 1;
+		return (no_time_to_wait);
+	}
+	return (no_time_to_wait);
+}
+
 // Organize the order in each philosophers are going to eat. If uneven number
 // of philo, always start with the highest ID, then the philosophers with an 
 // even ID, then, the philosphers with an uneven ID.
@@ -57,7 +72,11 @@ void	organize_queue_to_eat(t_philo *philo)
 			return ;
 	}
 	else
-		next_meal = philo->last_eat + 3 * philo->diner->set.time_to_eat;
+	{
+		no_time_to_wait = queue_if_not_first_meal(philo, &next_meal);
+		if (no_time_to_wait)
+			return ;
+	}
 	wait_until(next_meal, 0);
 	philo->timestamp = next_meal;
 }

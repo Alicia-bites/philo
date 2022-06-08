@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 12:12:47 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:24:14 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	init_game(t_philo *philos_list, t_game *diner)
 	if (diner->set.n_philos == 0)
 		return (NO_PHILO);
 	if (diner->set.n_meals == 0)
-		return (0);
+		return (NO_MEALS);
 	while (id < diner->set.n_philos)
 	{
 		init_philo(&philos_list[id], id + 1, diner);

@@ -18,7 +18,11 @@ void	*game(void *param)
 	t_philo	*philo;
 
 	philo = (t_philo *)param;
-	wait_if_even_nb_of_philo(philo);
+	if (philo->id % 2 == 0)
+	{
+		philo->timestamp += philo->diner->set.time_to_eat;
+		wait_until(philo->timestamp, 0);
+	}
 	while (!game_is_over(philo))
 	{
 		organize_queue_to_eat(philo);

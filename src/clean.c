@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:16:02 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 11:53:54 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:22:09 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ void	free_forks(t_philo *philos_list)
 
 	i = 0;
 	while (i < philos_list[0].diner->set.n_philos)
-	{
-		free(philos_list[i].left_fork);
-		i++;
-	}
+		free(philos_list[i++].left_fork);
 }
 
 int	ft_clean(t_philo *philos_list, t_game *diner, int err)

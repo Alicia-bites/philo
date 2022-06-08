@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 12:12:20 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:24:37 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,7 @@
 # define INT_NEG -8
 # define MUTEX_FAILURE -9
 # define NO_PHILO -10
-
-//a philosopher's day
-// # define EAT "is eating"
-// # define TAKE_FORK "has taken a fork"
-// # define SLEEP "is sleeping"
-// # define THINK "is thinking"
-// # define  DIE "died"
+# define NO_MEALS -11
 
 # define EAT -42
 # define TAKE_FORK -52
