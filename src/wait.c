@@ -6,11 +6,26 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 13:45:24 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:44:54 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
+
+// void	hold_philo_if_even_ID(t_philo *philo)
+// {
+// 	if (philo->id % 2 == 0)
+// 	{
+// 		philo->timestamp += philo->diner->set.time_to_eat;
+// 		if ((int)(philo->timestamp + philo->diner->set.time_to_eat) >
+// 			philo->diner->set.time_to_die)
+// 			{
+// 				wait_until(philo->diner->set.time_to_die - 1000, 0);
+// 				return ;				
+// 			}
+// 		wait_until(philo->timestamp, 0);
+// 	}
+// }
 
 static int	queue_uneven_n_philos(t_philo *philo, unsigned long *next_meal)
 {
@@ -34,13 +49,14 @@ static int	queue_uneven_n_philos(t_philo *philo, unsigned long *next_meal)
 	return (no_time_to_wait);
 }
 
-int	queue_if_not_first_meal(t_philo *philo, unsigned long *next_meal)
+static int	queue_if_not_first_meal(t_philo *philo, unsigned long *next_meal)
 {
 	int	no_time_to_wait;
 
 	no_time_to_wait = 0;
 	*next_meal = philo->last_eat + 3 * philo->diner->set.time_to_eat;
-	if ((int)(*next_meal) > philo->diner->set.time_to_die)
+	if ((int)(*next_meal) > philo->diner->set.time_to_die
+		&& philo->diner->set.n_philos % 2 != 0)
 	{
 		wait_until(philo->diner->set.time_to_die - 1000, 0);
 		no_time_to_wait = 1;
@@ -81,17 +97,7 @@ void	organize_queue_to_eat(t_philo *philo)
 	philo->timestamp = next_meal;
 }
 
-//wait half the time set to eat by user before starting if even n_philo
-void	wait_if_even_nb_of_philo(t_philo *philo)
-{
-	if (philo->id % 2 == 0)
-	{
-		philo->timestamp += philo->diner->set.time_to_eat;
-		wait_until(philo->timestamp, 0);
-	}
-}
-
-//wait and update timestamp with waited time
+//wait 0.2 ms at a time and update timestamp with waited time
 void	wait_and_add_waited_time(t_philo *philo, double *time_waited)
 {
 	unsigned long	new_try;

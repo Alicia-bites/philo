@@ -12,31 +12,33 @@
 
 #include "../headers/philo.h"
 
-//start game simulation. 
+// Start game.
 void	*game(void *param)
 {
 	t_philo	*philo;
+	int		err;
 
+	err = 0;
 	philo = (t_philo *)param;
-	if (philo->id % 2 == 0)
-	{
-		philo->timestamp += philo->diner->set.time_to_eat;
-		wait_until(philo->timestamp, 0);
-	}
 	while (!game_is_over(philo))
 	{
 		organize_queue_to_eat(philo);
-		philo_eats(philo);
-		philo_sleeps(philo);
-		philo_thinks(philo);
+		err = philo_eats(philo);
+		err = philo_sleeps(philo);
+		err = philo_thinks(philo);
+	}
+	if (err)
+	{
+		printf("%d\n", err);
+		return (0);
 	}
 	return (0);
 }
 
-//1.create one thread per philo, passing in second argument the function that
+//1. Create one thread per philo, passing in second argument the function that
 //	will define what the thread/philo will be doing.
-//2.make the program wait until each thread/philo is finished doing what it has
-//	to do and once they are all back continue and end the program.
+//2. Make the program wait until each thread/philo is finished doing what it 
+// has to do and once they are all back continue and end the program.
 int	start_diner(t_philo *philos_list, t_game *diner)
 {
 	int	i;

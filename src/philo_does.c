@@ -6,12 +6,13 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 11:45:08 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 13:52:04 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
+// Print what philosophers are doing at philo->timestamp with colors.
 void	color_print(t_philo *philo, int whattodo)
 {
 	if (whattodo == EAT)
@@ -31,6 +32,7 @@ void	color_print(t_philo *philo, int whattodo)
 			philo->id);
 }		
 
+// Check if philo starved. lock game state, and print action.
 int	ft_do(t_philo *philo, unsigned long time_to, int whattodo)
 {
 	int	err;
@@ -46,6 +48,9 @@ int	ft_do(t_philo *philo, unsigned long time_to, int whattodo)
 	return (err);
 }
 
+// Philo grabs forks (and wait as long as they have to).
+// When forks are in hands, save time of last meal.
+// 
 int	philo_eats(t_philo *philo)
 {
 	int	err;
@@ -53,7 +58,6 @@ int	philo_eats(t_philo *philo)
 	err = grab_forks(philo);
 	philo->last_eat = philo->timestamp;
 	err = ft_do(philo, philo->diner->set.time_to_eat, EAT);
-	wait_until(philo->diner->set.time_to_eat, 0);
 	err = drop_forks(philo);
 	philo->n_meals++;
 	return (err);
