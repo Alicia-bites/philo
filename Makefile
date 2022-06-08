@@ -6,7 +6,7 @@
 #    By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/23 17:34:14 by amarchan          #+#    #+#              #
-#    Updated: 2022/06/08 11:50:37 by amarchan         ###   ########.fr        #
+#    Updated: 2022/06/08 15:27:41 by amarchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ RM = rm -rf
 
 INC_DIR = headers
 
-.c.o: $(SRCS)
+.c.o: $(SRCS) philo.h
 	$(CC) $(CFLAGS) -c -I ${INC_DIR} $< -o ${<:.c=.o}
 
 all: $(NAME) 

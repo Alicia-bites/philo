@@ -20,7 +20,7 @@ void	*game(void *param)
 
 	err = 0;
 	philo = (t_philo *)param;
-	hold_philo_if_even_ID(philo);
+	hold_philo_if_even_id(philo);
 	while (!game_is_over(philo))
 	{
 		organize_queue_to_eat(philo);

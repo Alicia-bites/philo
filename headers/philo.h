@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 14:07:06 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:32:01 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ struct timeval	ft_convert(unsigned long moment_ms);
 void			wait_and_add_waited_time(t_philo *philos, double *time_waited);
 void			wait_if_even_nb_of_philo(t_philo *philos);
 void			organize_queue_to_eat(t_philo *philos);
-void			hold_philo_if_even_ID(t_philo *philo);
+void			hold_philo_if_even_id(t_philo *philo);
 
 //create fork
 int				deal_forks(t_philo *philos, t_settings *set);

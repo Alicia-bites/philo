@@ -6,11 +6,11 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 13:24:14 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:26:30 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../headers/philo.h"
 
 // Initialize id, when last_meal was, number of meals eaten and pointer to
 // diner for each philosopher.
