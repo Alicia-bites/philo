@@ -6,15 +6,16 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 15:11:02 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:14:37 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-void	hold_philo_if_even_ID(t_philo *philo)
+void	hold_philo_if_even_id(t_philo *philo)
 {
-	if (philo->id % 2 == 0 && (int)(philo->timestamp + philo->diner->set.time_to_eat) <
+	if (philo->id % 2 == 0 && (int)(philo->timestamp
+		+ philo->diner->set.time_to_eat) <
 			philo->diner->set.time_to_die)
 	{
 		philo->timestamp += philo->diner->set.time_to_eat;
