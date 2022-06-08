@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:31:28 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 15:56:40 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:45:16 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	philo_starved(t_philo *philo)
 	{
 		err = pthread_mutex_lock(&philo->diner->game_over_lock);
 		if (!philo->diner->game_over)
-			printf("%lu %d %s\n", philo->timestamp, philo->id, DIE);
+			color_print(philo, DIE);
 		philo->diner->game_over = 1;
 		err = pthread_mutex_unlock(&philo->diner->game_over_lock);
 		return (err);

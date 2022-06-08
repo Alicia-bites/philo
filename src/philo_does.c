@@ -6,13 +6,32 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:49:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 10:54:49 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:45:08 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-int	ft_do(t_philo *philo, unsigned long time_to, char *whattodo)
+void	color_print(t_philo *philo, int whattodo)
+{
+	if (whattodo == EAT)
+		printf("\033[0;31m%lu %d is eating\033[0m\n", philo->timestamp,
+			philo->id);
+	if (whattodo == TAKE_FORK)
+		printf("\033[0;35m%lu %d has taken a fork\033[0m\n", philo->timestamp,
+			philo->id);
+	if (whattodo == SLEEP)
+		printf("\033[0;36m%lu %d is sleeping\033[0m\n", philo->timestamp,
+			philo->id);
+	if (whattodo == THINK)
+		printf("\033[0;33m%lu %d is thinking\033[0m\n", philo->timestamp,
+			philo->id);
+	if (whattodo == DIE)
+		printf("\033[0;32m%lu %d died\033[0m\n", philo->timestamp,
+			philo->id);
+}		
+
+int	ft_do(t_philo *philo, unsigned long time_to, int whattodo)
 {
 	int	err;
 
@@ -20,7 +39,7 @@ int	ft_do(t_philo *philo, unsigned long time_to, char *whattodo)
 	err = philo_starved(philo);
 	err = pthread_mutex_lock(&philo->diner->game_over_lock);
 	if (!philo->diner->game_over)
-		printf("%lu %d %s\n", philo->timestamp, philo->id, whattodo);
+		color_print(philo, whattodo);
 	err = pthread_mutex_unlock(&philo->diner->game_over_lock);
 	philo->timestamp += time_to;
 	wait_until(philo->timestamp, 0);

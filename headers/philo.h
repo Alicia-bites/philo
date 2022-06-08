@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 10:54:14 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:35:48 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,17 @@
 # define NO_PHILO -10
 
 //a philosopher's day
-# define EAT "is eating"
-# define TAKE_FORK "has taken a fork"
-# define SLEEP "is sleeping"
-# define THINK "is thinking"
-# define  DIE "died"
+// # define EAT "is eating"
+// # define TAKE_FORK "has taken a fork"
+// # define SLEEP "is sleeping"
+// # define THINK "is thinking"
+// # define  DIE "died"
+
+# define EAT -42
+# define TAKE_FORK -52
+# define SLEEP -62
+# define THINK -72
+# define  DIE -82
 
 typedef struct s_settings
 {
@@ -117,11 +123,11 @@ int				give_fork_to_philos(t_philo *left_philo, t_philo *right_philo);
 t_fork			*new_fork(int *has_failed);
 
 //philo_does
-int				ft_do(t_philo *philos, unsigned long time_to, char *whattodo);
+int				ft_do(t_philo *philos, unsigned long time_to, int whattodo);
 int				philo_thinks(t_philo *philos);
 int				philo_sleeps(t_philo *philos);
 int				philo_eats(t_philo *philos);
-int				ft_print(t_philo *philos, char *whattodo);
+void		color_print(t_philo *philo, int whattodo);
 
 //fork
 int				tries(t_philo *philos, t_fork *fork);
