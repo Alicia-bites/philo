@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:05:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 11:06:47 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 11:54:51 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,21 @@ char	**check_args(int argc, char **argv, int *err)
 	{
 		if (!isinteger(argv[i]))
 		{
-			*err = ft_panic(NOT_INT);
+			*err = NOT_INT;
 			return (argv);
 		}
 		if (ft_atoll(argv[i]) < 0)
-			*err = ft_panic(INT_NEG);
+			*err = INT_NEG;
 		ft_strip(argv[i]);
 		if (ft_strlen(argv[i]) == 0)
-			*err = ft_panic(EMPTY_STR);
-		else if (ft_strlen(argv[i]) <= 11 && isinteger(argv[i]))
+			*err = EMPTY_STR;
+		if (ft_strlen(argv[i]) <= 11)
 		{
 			if (ft_invalid_int(ft_atoll(argv[i])))
-				*err = ft_panic(OUT_INT);
+				*err = OUT_INT;
 		}
+		else 
+			*err = NOT_INT;
 		i++;
 	}
 	return (argv);
