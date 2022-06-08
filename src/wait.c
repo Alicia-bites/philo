@@ -6,26 +6,21 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:02:43 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 14:44:54 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/08 15:11:02 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/philo.h"
 
-// void	hold_philo_if_even_ID(t_philo *philo)
-// {
-// 	if (philo->id % 2 == 0)
-// 	{
-// 		philo->timestamp += philo->diner->set.time_to_eat;
-// 		if ((int)(philo->timestamp + philo->diner->set.time_to_eat) >
-// 			philo->diner->set.time_to_die)
-// 			{
-// 				wait_until(philo->diner->set.time_to_die - 1000, 0);
-// 				return ;				
-// 			}
-// 		wait_until(philo->timestamp, 0);
-// 	}
-// }
+void	hold_philo_if_even_ID(t_philo *philo)
+{
+	if (philo->id % 2 == 0 && (int)(philo->timestamp + philo->diner->set.time_to_eat) <
+			philo->diner->set.time_to_die)
+	{
+		philo->timestamp += philo->diner->set.time_to_eat;
+		wait_until(philo->timestamp, 0);
+	}
+}
 
 static int	queue_uneven_n_philos(t_philo *philo, unsigned long *next_meal)
 {
