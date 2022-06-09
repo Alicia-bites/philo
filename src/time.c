@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 12:00:53 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/09 10:45:59 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:28:08 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	get_starting_time(t_philo *philo)
 {
 	struct timeval	start;
 
-	(void)*philo;
 	gettimeofday(&start, 0);
 	wait_until(philo, 0, &start);
 }
