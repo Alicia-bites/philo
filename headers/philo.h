@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:00:04 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/09 10:46:46 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:07:01 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void			organize_queue_to_eat(t_philo *philos);
 void			hold_philo_if_even_id(t_philo *philo);
 
 //create fork
-int				deal_forks(t_philo *philos, t_settings *set);
+int				deal_forks(t_philo *philos, t_settings *set, int time_to_die);
 int				give_fork_to_philos(t_philo *left_philo, t_philo *right_philo);
 t_fork			*new_fork(int *has_failed);
 

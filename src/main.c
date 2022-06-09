@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:35:27 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 15:26:30 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:06:16 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	init_game(t_philo *philos_list, t_game *diner)
 		init_philo(&philos_list[id], id + 1, diner);
 		id++;
 	}
-	if (deal_forks(philos_list, &diner->set))
+	if (deal_forks(philos_list, &diner->set,
+			philos_list->diner->set.time_to_die))
 		return (err);
 	err = init_end_game(diner);
 	err = start_diner(philos_list, diner);

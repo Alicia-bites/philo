@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:26:24 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/09 11:03:28 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/09 11:05:50 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	give_fork_to_philos(t_philo *left_philo, t_philo *right_philo)
 
 //if there are more than one philo, deal forks to philosophers
 //if there is just one philo, is takes a fork and then die at time_to_die ms
-int	deal_forks(t_philo *philos, t_settings *set)
+int	deal_forks(t_philo *philos, t_settings *set, int time_to_die)
 {
 	int		i;
 	int		err;
@@ -70,8 +70,7 @@ int	deal_forks(t_philo *philos, t_settings *set)
 	if (set->n_philos == 1)
 	{
 		printf("\033[0;35m%d %d has taken a fork\033[0m\n", 0, 1);
-		printf("\033[0;32m%d %d died\033[0m\n",
-			philos->diner->set.time_to_die, 1);
+		printf("\033[0;32m%d %d died\033[0m\n", time_to_die, 1);
 		return (1);
 	}
 	return (0);
