@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:31:28 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/08 11:45:16 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:44:37 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	philo_starved(t_philo *philo)
 		err = pthread_mutex_unlock(&philo->diner->game_over_lock);
 		return (err);
 	}
-	return (1);
+	return (0);
 }
 
 // Init mutex that locks diner->game_over variable. This way, only one thread 

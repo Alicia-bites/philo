@@ -6,7 +6,7 @@
 /*   By: amarchan <amarchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 13:30:40 by amarchan          #+#    #+#             */
-/*   Updated: 2022/06/07 13:31:31 by amarchan         ###   ########.fr       */
+/*   Updated: 2022/06/09 10:45:02 by amarchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	grab_fork(t_philo *philo, t_fork *fork)
 	time_waited = 0;
 	while (!is_fork_taken)
 	{
-		if (!philo_starved(philo))
+		if (philo_starved(philo))
 			return (0);
 		is_fork_taken = tries(philo, fork);
 		if (is_fork_taken == -1)
